@@ -1,7 +1,7 @@
 # GitHub 101
 **Bài blog này dành cho những người mới bắt đầu sử dụng Git, bài viết này bao gồm những mẹo hữu ích để quản lý project (cụ thể là quản lý code) sử dụng Git và GitHub.**
 
-Xin chào, có lẽ ai trong giới lập trình viên cũng đã từng nghe qua "Git" và "GitHub", nhưng chỉ một số ít người có thể áp dụng nó hiệu quả trong trong công việc, bài blog này sẽ làm sáng tỏ cách Git và GitHub hoạt động và làm để nào để bạn có thể dùng nó để "thống trị" con đường làm dev của bạn.
+Trong quá trình học trên trường, mình đã trải qua vài môn học cần quản lý source code trên GitHub như là: Lập trình hướng đối tượng, Lập trình mạng căn bản, Phát triển ứng dụng trên thiết bị di động. Vì vậy ở bài viết này, mình sẽ chia sẻ một chút kinh nghiệm sử dụng GitHub mà mình biết được trong quá trình học trên trường.
 
 ## Những khái niệm cơ bản
 ### Remote Repository và Local Repository:
@@ -194,4 +194,4 @@ Sau một thời gian sử dụng GitHub để quản lý những đồ án trê
         .vscode/ #bỏ qua folder có tên là ".vscode"
         vole_secrets.json #bỏ qua file có tên là "vole_secrets.json"
         .+.pem # bỏ qua các file có phần mở rộng là ".pem"
-- Về cái file chứa "bí mật", bạn nên gửi nó cho những người làm đồ án chung thông qua những ứng dụng nhắn tin có mã hóa đầu cuối (E2EE - End to End Encrytion), ví dụ như: Telegram, WhatsApp,.... Messenger, Zalo có tính năng mã hóa đầu cuối cho cuộc trò chuyện, tuy nhiên đừng tin nó.
+- Về cái file chứa "bí mật", bạn nên gửi nó cho những người làm đồ án chung thông qua những ứng dụng nhắn tin có mã hóa đầu cuối (E2EE - End to End Encrytion), ví dụ như: Telegram, WhatsApp,.... Messenger, Zalo nói rằng họ có tính năng mã hóa đầu cuối trong cuộc trò chuyện, tuy nhiên đừng tin họ.
