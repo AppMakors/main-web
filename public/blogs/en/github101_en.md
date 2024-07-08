@@ -1,7 +1,7 @@
 # GitHub 101
 **This blog post is for those who are new to using Git. It includes useful tips for managing projects (specifically code management) using Git and GitHub.**
 
-Hello, everyone may have already heard about "Git" and "GitHub", but only few that can apply them effectively into their job, this article will clearify how Git and GitHub works and how you can use it to dominate your development journey.
+During my time at school, I took several courses that required managing source code on GitHub, such as Object-Oriented Programming, Fundamental Network Programming, and Mobile Application Development. In this blog, I will share some of the experiences and tips I gained from using GitHub throughout these courses.
 
 ## Basic Concepts
 ### Remote Repository and Local Repository:
