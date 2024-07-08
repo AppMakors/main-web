@@ -9,7 +9,7 @@ export default function About() {
 
     useEffect(() => {
         async function getAbout() {
-            const response = await fetch(`.${import.meta.env.BASE_URL}about.md`);
+            const response = await fetch(`./about.md`);
             const text = await response.text();
 
             setContent(text);
