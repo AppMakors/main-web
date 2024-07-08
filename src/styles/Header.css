@@ -1,0 +1,44 @@
+.header {
+    top: 0;
+    left: 0;
+
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+
+    height: 70px;
+
+    background-color:rgb(56, 55, 55);
+
+    border-bottom: 2px gray solid;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.page-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.page-button {
+    /* padding: 5px; */
+    margin-left: 10px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    /* border: 1px white solid; */
+    /* border-radius: 5px; */
+}
+
+.page-button:hover {
+    /* font-weight: bold; */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
