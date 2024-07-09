@@ -195,11 +195,3 @@ Sau một thời gian sử dụng GitHub để quản lý những đồ án trê
         vole_secrets.json #bỏ qua file có tên là "vole_secrets.json"
         .+.pem # bỏ qua các file có phần mở rộng là ".pem"
 - Về cái file chứa "bí mật", bạn nên gửi nó cho những người làm đồ án chung thông qua những ứng dụng nhắn tin có mã hóa đầu cuối (E2EE - End to End Encrytion), ví dụ như: Telegram, WhatsApp,.... Messenger, Zalo nói rằng họ có tính năng mã hóa đầu cuối trong cuộc trò chuyện, tuy nhiên đừng tin họ.
-
-## Tài liệu tham khảo
-1. [Remote repositories vs. local repositories](https://nulab.com/learn/software-development/git-tutorial/git-basics/repositories/remote-repositories-vs-local-repositories/#:~:text=A%20remote%20repository%20is%20hosted,machine%20for%20an%20individual%20user)
-2. [Nhánh Git là gì?](https://nulab.com/vi/learn/software-development/git-tutorial/git-collaboration/branches/what-is-a-git-branch/)
-3. [git add](https://git-scm.com/docs/git-add)
-4. [How to Write Better Git Commit Messages – A Step-By-Step Guide](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
-
-[writtenDay]: <18/06/2024>
