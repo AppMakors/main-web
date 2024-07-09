@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import "../styles/Blog.css"
 
 export default function About() {
     const [content, setContent] = useState("");
@@ -18,7 +19,7 @@ export default function About() {
         getAbout();
     })
 
-    return <div className="content">
+    return <div className="blog-content">
         <Markdown remarkPlugins={[remarkGfm]}>{content}</Markdown>
     </div>
 }

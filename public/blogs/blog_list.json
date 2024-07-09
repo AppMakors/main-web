@@ -1,0 +1,18 @@
+[
+    {
+        "id": "github101",
+        "title": "Github 101",
+        "introduction": "This is a guide for beginners on how to use git and github for version control",
+        "imgSource": "",
+        "authorLink": "https://github.com/votranphi",
+        "publishDate": "4/7/2024"
+    },
+    {
+        "id": "andstu101",
+        "title": "Android Studio 101",
+        "introduction": "This is a guide for beginners on how to use Android Studio for Mobile App Development",
+        "imgSource": "",
+        "authorLink": "https://github.com/votranphi",
+        "publishDate": "??"
+    }
+]

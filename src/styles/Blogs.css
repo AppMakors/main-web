@@ -1,21 +1,64 @@
-.content {
-    width: 60%;
+.blogs-main {
     margin: auto;
+    width: 60%;
+}
+
+.blogs-introduction {
     color: white;
-
-    font-size: 20px;
+    text-align: center;
 }
 
-.content pre {
-    background-color: rgb(37, 37, 37);
+.blogs-title {
+    color: white;
+    text-align: center;
+}
 
-    padding: 10px;
-    border-radius: 5px;
+.blogs-container {
+    color: white;
+    align-content: center;
+}
+
+.card-wrapper {
     border: 1px white solid;
-    white-space: pre-wrap;
+    border-radius: 5px;
+    margin: 12px auto;
+    padding: 5px;
+    width: 80%;
+    height: 150px;
+
+    display: flex;
+    background-color: rgb(43, 43, 43);
 }
 
-.content a {
+.card-info {
+    width: 100%;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 2vw;
+    font-weight: 600;
+}
+
+.card-title a {
+    text-decoration: none;
+    color: white;
+}
+
+.card-title a:hover {
+    text-decoration: none;
+    color: yellow;
+}
+
+.card-authdate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-author a {
     color: yellow;
     text-decoration: none;
 }
