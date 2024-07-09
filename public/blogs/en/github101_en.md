@@ -200,3 +200,11 @@ After using GitHub to manage my school projects, I have gathered the following e
         .+.pem #ignore all files with the ".pem" extension
 
 - Regarding the file containing "secrets," you should send it to your team members through end-to-end encrypted (E2EE) messaging applications, such as Telegram, WhatsApp, etc. Messenger and Zalo have end-to-end encryption for conversations, but don't trust them.
+
+## References
+1. [Remote repositories vs. local repositories](https://nulab.com/learn/software-development/git-tutorial/git-basics/repositories/remote-repositories-vs-local-repositories/#:~:text=A%20remote%20repository%20is%20hosted,machine%20for%20an%20individual%20user)
+2. [Nhánh Git là gì?](https://nulab.com/vi/learn/software-development/git-tutorial/git-collaboration/branches/what-is-a-git-branch/)
+3. [git add](https://git-scm.com/docs/git-add)
+4. [How to Write Better Git Commit Messages – A Step-By-Step Guide](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/)
+
+[writtenDay]: <18/06/2024>
