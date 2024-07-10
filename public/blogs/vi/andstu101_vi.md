@@ -14,7 +14,7 @@ Bài viết này chủ yếu mình sẽ chỉ đưa ra những khái niệm, nh�
   - [XML file trong Android Studio](#xml-file-trong-android-studio)
   - [Components](#components)
   - [Layouts](#layouts)
-  - [ListView, GridView và Spinner](#listview-gridview-và-spinner)
+  - [ListView, GridView và RecyclerView](#listview-gridview-và-recyclerview)
   - [Animations](#animations)
   - [Activity](#activity)
   - [Fragment](#fragment)
@@ -115,7 +115,18 @@ Ví dụ về một RelativeLayout với hai TextView ở trong:
 </RelativeLayout>
 ```
 
-## ListView, GridView và Spinner
+## ListView, GridView và RecyclerView
+Thực chất thì ListView, GridView và RecyclerView cũng chỉ là các thành phần như những thành phần đã được đề cập ở mục [Components](#components). Tuy nhiên, mình tách chúng ra một mục riêng bởi vì chúng khá quan trọng. Các bạn thử để ý xem, trong các ứng dụng trên thiết bị di động hiện nay, chắc chắc rằng ứng dụng nào cũng phải sử dụng ListView (dùng để hiển thị một danh sách dạng từng hàng). Vì vậy, hãy cùng đi vào tìm hiểu cùng mình nhé.
+
+- Khái niệm:
+    - **Item:** một item trong ListView, GridView hoặc RecyclerView có thể là một hàng, một ô hoặc một cái gì đó tùy theo người phát triển custom.
+    - **ListView:** dùng để hiển thị một danh sách dạng từng hàng.
+    - **GridView:** dùng để hiển thị một danh sách dạng từng ô.
+    - **RecyclerView:** đây là một dạng ListView thường được sử dụng để hiển thị một item có chứa lượng dữ liệu khá lớn ở trong (ví dụ như item có chứa một hình ảnh). Công dụng của nó là như thế bởi vì nó có tính "tái chế" (đúng như cái tên của nó). Nó "tái chế" bằng cách sử dụng các ViewHolder để giữ các items và có thể sử dụng lại.
+    - **Adapter:** mỗi một ListView, GridView hoặc RecyclerView đều cần phải khởi tạo một Adapter mới có thể sử dụng được. Hiểu đơn giản thì Adapter sẽ xử lý những công việc mà chúng ta muốn làm khi ListView có một item mới được thêm vào. Điều đó giúp ta có thể custom ListView theo ý muốn của chúng ta.
+- Ví dụ về cách khởi tạo và sử dụng một ListView:
+    - [ListView - Android Studio Document](https://developer.android.com/reference/android/widget/ListView)
+    - [ListView và Custom Adapter - howkteam](https://howkteam.vn/course/khoa-hoc-lap-trinh-android-co-ban/listview-va-custom-adapter-119)
 ## Animations
 ## Activity
 ## Fragment
