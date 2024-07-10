@@ -3,7 +3,7 @@
         "id": "github101",
         "title": "Github 101",
         "introduction": "This is a guide for beginners on how to use git and github for version control",
-        "imgSource": "",
+        "imgSource": "https://res.cloudinary.com/diy6oyo6l/image/upload/v1720580482/git_and_github_a4hhhv.png",
         "authorLink": "https://github.com/votranphi",
         "publishDate": "18/06/2024"
     },
@@ -11,7 +11,7 @@
         "id": "andstu101",
         "title": "Android Studio 101",
         "introduction": "This is a guide for beginners on how to use Android Studio for Mobile App Development",
-        "imgSource": "",
+        "imgSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Android_Studio_Logo_%282023%29.svg/1200px-Android_Studio_Logo_%282023%29.svg.png",
         "authorLink": "https://github.com/votranphi",
         "publishDate": "09/07/2024"
     }
