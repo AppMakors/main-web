@@ -6,7 +6,7 @@ function BlogCard({blog}) {
 	return (
 		<div className="card-wrapper">
 			<Link className="card-img-wrapper" to={`./${blog.id}`}>
-				<img height={150} width={150} src="./src/assets/react.svg" />
+				<img height={150} width={150} src={`${blog.imgSource}`} />
 			</Link>
 			<div className="card-info">
 				<div className="card-info-upper">
