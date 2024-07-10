@@ -6,8 +6,6 @@ import "../styles/Blog.css"
 export default function About() {
     const [content, setContent] = useState("");
 
-    console.log("hello", import.meta.env.BASE_URL);
-
     useEffect(() => {
         async function getAbout() {
             const response = await fetch(`./about.md`);

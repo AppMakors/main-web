@@ -51,7 +51,7 @@ export default function Blogs() {
 			<h1 className="blogs-title">AppMakors Blogs</h1>
 			<h2 className="blogs-introduction">A place where you can find useful tips and tricks</h2>
 			<div className="blogs-container">
-				{ blogs.map((blog) => <BlogCard blog={blog} />)	}
+				{ blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />)	}
 			</div>
 		</div>
 	)

@@ -6,16 +6,8 @@
     font-size: 20px;
 }
 
-.blog-content pre {
-    background-color: rgb(37, 37, 37);
-
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px white solid;
-    white-space: pre-wrap;
-}
-
 .blog-content a {
     color: yellow;
     text-decoration: none;
 }
+

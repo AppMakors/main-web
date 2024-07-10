@@ -48,41 +48,41 @@ Tiếp theo, để cái thùng đó có "lý do gửi đi" hoặc hiểu đơn g
 git commit -m "<commit message>"
 ```
 Khi làm việc nhóm, chúng ta cần viết những ghi chú có ý nghĩa để dễ kiểm soát sự thay đổi của source, theo [bài viết này](https://www.freecodecamp.org/news/how-to-write-better-git-commit-messages/) ở FreeCodeCamp, mình đã tổng hợp được các quy ước khi viết ghi chú như sau:
+```
+1. feat - tính năng mới
+Ví dụ: "feat: run timer", "feat: competition mode"
 
-    1. feat - tính năng mới
-    Ví dụ: "feat: run timer", "feat: competition mode"
+2. fix - sửa lỗi
+Ví dụ: "fix: time is not correct", "fix: wrong file path"
 
-    2. fix - sửa lỗi
-    Ví dụ: "fix: time is not correct", "fix: wrong file path"
+3. refactor - cấu trúc lại
+Được dùng khi bạn thay đổi tên biến, tên lớp, comment,... mà không thêm tính năng mới hay sửa lỗi gì
+Ví dụ: "refactor: change timor -> timer", "refactor: comment changes"
 
-    3. refactor - cấu trúc lại
-    Được dùng khi bạn thay đổi tên biến, tên lớp, comment,... mà không thêm tính năng mới hay sửa lỗi gì
-    Ví dụ: "refactor: change timor -> timer", "refactor: comment changes"
+4. chore - những việc lặt vặt
+Được dùng khi có những thay đổi bên ngoài source code, mà liên quan tới các file Dependency, file Config, Nuget,...
+Ví dụ: "chore: add Newtonsoft.Json package", "chore: remove HtmlAgilityPack package"
 
-    4. chore - những việc lặt vặt
-    Được dùng khi có những thay đổi bên ngoài source code, mà liên quan tới các file Dependency, file Config, Nuget,...
-    Ví dụ: "chore: add Newtonsoft.Json package", "chore: remove HtmlAgilityPack package"
+5. docs - những thay đổi liên quan tới "tài liệu" hoặc hướng dẫn của phần mềm
+Ví dụ: "docs: upload README.md", "docs: update README.md"
 
-    5. docs - những thay đổi liên quan tới "tài liệu" hoặc hướng dẫn của phần mềm
-    Ví dụ: "docs: upload README.md", "docs: update README.md"
+6. style - nghe là biết rồi
+Được dùng khi không thay đổi gì liên quan đến ngữ nghĩa hay cách hoạt động của code mà chỉ là format lại code sao cho nhìn nó đẹp hơn
+Ví dụ: "style: change braces formatting", "style: change operators/operands formatting"
 
-    6. style - nghe là biết rồi
-    Được dùng khi không thay đổi gì liên quan đến ngữ nghĩa hay cách hoạt động của code mà chỉ là format lại code sao cho nhìn nó đẹp hơn
-    Ví dụ: "style: change braces formatting", "style: change operators/operands formatting"
+7. revert - quay lại commit trước
+Hiểu đơn giản giống như "ctrl-z" lại các cập nhật trước đó
+Ví dụ: "revert: revert to 25b2630", "revert: revert to previous commit"
 
-    7. revert - quay lại commit trước
-    Hiểu đơn giản giống như "ctrl-z" lại các cập nhật trước đó
-    Ví dụ: "revert: revert to 25b2630", "revert: revert to previous commit"
+8. perf - những thay đổi liên quan đến cải thiện hiệu năng
+Ví dụ: "perf: using quick sort instead of bogo sort", "perf: two for loops -> one for loop"
 
-    8. perf - những thay đổi liên quan đến cải thiện hiệu năng
-    Ví dụ: "perf: using quick sort instead of bogo sort", "perf: two for loops -> one for loop"
+9. test - chưa biết rõ
 
-    9. test - chưa biết rõ
+10. ci - chưa biết rõ
 
-    10. ci - chưa biết rõ
-
-    11. build - chưa biết rõ
-
+11. build - chưa biết rõ
+```
 ## git push
 Sau khi đã "đóng gói" vào thùng và đã viết "lý do gửi đi" lên thùng. Lúc này "thùng hàng" của chúng ta đã sẵn sàng để được gửi đi. Để làm được điều đó thì ta cần phải sử dụng câu lệnh sau:
 ```bash
