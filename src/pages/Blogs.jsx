@@ -35,7 +35,8 @@ export default function Blogs() {
 
     useEffect(() => {
 		async function getBlogs() {
-			const response = await fetch("./blogs/blog_list.json");
+			const response = await fetch(`blogs/blog_list.json`);
+			console.log(response);
 			const list = await response.json();
 
 			setBlogs(list);
@@ -45,6 +46,8 @@ export default function Blogs() {
     }, []);
 
 	// console.log(blogs);
+
+	
 
 	return (
 		<div className="blogs-main">
