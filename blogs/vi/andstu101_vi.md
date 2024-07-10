@@ -5,7 +5,7 @@ Sớm hơn dự tính, trong học kỳ II của năm hai đại học mình đ�
 
 Trong sơ đồ môn học (sơ đồ kế hoạch giảng dạy) có để môn học trước môn này là Lập trình hướng đối tượng, tuy nhiên mình thấy điều này chưa đúng lắm. Theo mình, để học được môn học này thì chúng ta cần tối thiểu 2 môn học trước là Lập trình hướng đối tượng và Lập trình mạng căn bản. Và thêm môn học Quản trị mạng và hệ thống nếu đồ án của các bạn có triển khai (deployment).
 
-Bài viết này sẽ hơi dài vì kiến thức về Android Studio mình được học trên trường là rất nhiều. Các bạn có thể theo dõi mục lục.
+Bài viết này chủ yếu mình sẽ chỉ đưa ra những khái niệm, những kiến thức cơ bản để các bạn có thể tự tìm hiểu, vì việc đưa code vào và giải thích code sẽ khiến bài viết này rất dài.
 
 ## Mục lục
 - [Android Studio 101](#android-studio-101)
@@ -30,49 +30,47 @@ Bài viết này sẽ hơi dài vì kiến thức về Android Studio mình đư
 Android Studio là môi trường phát triển tích hợp (IDE) chính thức dành cho phát triển nền tảng Android. Nó được ra mắt vào ngày 16 tháng 5 năm 2013 tại hội nghị Google I/O. Android Studio được phát hành miễn phí theo giấy phép Apache Licence 2.0.
 
 - Các loại file cần biết trong một Android Studio project:
-	- Các file .java: các file vận hành.
-	- Các file .xml: có thể là một layout hoặc là một file resource, animation,...
-	- File build.gradle: khai báo các dependencies, plugins,...
+	- **Các file .java:** các file vận hành.
+	- **Các file .xml:** có thể là một layout hoặc là một file resource, animation,...
+	- **File build.gradle:** khai báo các dependencies, plugins,...
 
-- Cách đặt tên các file .java trong Android Studio:
-    - Một activity: NameActivity.java
-    - Một fragment: NameFragment.java
+- Quy tắc đặt tên các file .java trong Android Studio:
+    - **Một activity:** NameActivity.java
+    - **Một fragment:** NameFragment.java
 
-- Cách đặt tên các file XML trong Android Studio:
-    - Layout cho một Activity: activity_name.xml
-    - Layout cho một Fragment: fragment_name.xml
-    - Layout cho một item: item_name.xml
-    - Cho một animation: anim_name.xml
+- Quy tắc đặt tên các file XML trong Android Studio:
+    - **Layout cho một Activity:** activity_name.xml
+    - **Layout cho một Fragment:** fragment_name.xml
+    - **Layout cho một item:** item_name.xml
+    - **Cho một animation:** anim_name.xml
 
 ## XML file trong Android Studio
 Định nghĩa XML:
-- Wikipedia: XML (viết tắt từ tiếng Anh: eXtensible Markup Language, tức "Ngôn ngữ đánh dấu mở rộng") là ngôn ngữ đánh dấu với mục đích chung do W3C đề nghị, để tạo ra các ngôn ngữ đánh dấu khác.
-- Theo mình hiểu: XML và HTML có bản chất giống nhau, vì cả 2 đều là Markup Language (ngôn ngữ đánh dấu). Cách sử dụng XML trong Android Studio cũng giống như cách sử dụng HTML trong WebDev. File XML trong Android Studio có thể làm được khá nhiều thứ:
+- **Wikipedia:** XML (viết tắt từ tiếng Anh: eXtensible Markup Language, tức "Ngôn ngữ đánh dấu mở rộng") là ngôn ngữ đánh dấu với mục đích chung do W3C đề nghị, để tạo ra các ngôn ngữ đánh dấu khác.
+- **Theo mình hiểu:** XML và HTML có bản chất giống nhau, vì cả 2 đều là Markup Language (ngôn ngữ đánh dấu). Cách sử dụng XML trong Android Studio cũng giống như cách sử dụng HTML trong WebDev. File XML trong Android Studio có thể làm được khá nhiều thứ:
     - Dùng để thiết kế các layout cho một Activity, Fragment, item trong ListView hoặc 1 dialog.
     - Dùng để ánh xạ từ một ID sang một giá trị String cụ thể (file strings.xml).
     - Dùng để ánh xạ từ một ID sang một giá trị đo lường cụ thể (file dimens.xml).
     - Dùng để thiết kế các animations cho một component hoặc cho chuyển động giữa các activities, fragments (folder anim).
 
-Về phần cách sử dụng các file XML cụ thể, các bạn có thể xem trong mục [Components](#components), [Layouts](#layouts), [ListView, GridView và Spinner](#listview-gridview-và-spinner), [Animations](#animations).
+Về phần cách sử dụng các file XML cụ thể, các bạn có thể xem các ví dụ trong mục [Components](#components), [Layouts](#layouts), [ListView, GridView và Spinner](#listview-gridview-và-spinner), [Animations](#animations).
 
 ## Components
 Các thành phần (components) trong một layout là một đối tượng UI hiển thị trên layout mà người dùng có thể nhìn thấy hoặc thao tác được.
 
 Các thành phần cơ bản trong một layout:
-- EditText: text có thể chỉnh sửa.
-- TextView: text dùng để hiển thị.
-- Button: nút dùng để bấm.
-- ImageView: hiển thị một hình ảnh.
-- ImageButton: là một cái nút nhưng có thể hiển thị hình ảnh.
-- CheckBox: ô vuông dùng để check.
-- ProgressBar: hiển thị tiến độ công việc.
-- etc...
+- **EditText:** text có thể chỉnh sửa.
+- **TextView:** text dùng để hiển thị.
+- **Button:** nút dùng để bấm.
+- **ImageView:** hiển thị một hình ảnh.
+- **ImageButton:** là một cái nút nhưng có thể hiển thị hình ảnh.
+- **CheckBox:** ô vuông dùng để check.
+- **ProgressBar:** hiển thị tiến độ công việc.
 
 Các thành phần nâng cao trong một layout:
-- ViewPager2: có rất nhiều công dụng, tuy nhiên công dụng duy nhất mà mình biết đến là dùng để chứa các fragments và có thể lướt ngang giữa các fragments.
-- BottomNavigationView: là một thanh điều hướng ở phía dưới layout (không phải thanh điều hướng của điện thoại).
-- SwipeRefreshLayout: cung cấp cho ListView chức năng lướt xuống để refresh.
-- etc...
+- **ViewPager2:** có rất nhiều công dụng, tuy nhiên công dụng duy nhất mà mình biết đến là dùng để chứa các fragments và có thể lướt ngang giữa các fragments.
+- **BottomNavigationView:** là một thanh điều hướng ở phía dưới layout (không phải thanh điều hướng của điện thoại).
+- **SwipeRefreshLayout:** cung cấp cho ListView chức năng lướt xuống để refresh.
 
 Ví dụ về một thành phần EditText trong XML file:
 
@@ -80,11 +78,43 @@ Ví dụ về một thành phần EditText trong XML file:
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/tvLookUpContent"
-        android:background="@drawable/edittext"
-        android:layout_toEndOf="@+id/btnClose"
         android:layout_marginStart="5dp" />
 
 ## Layouts
+Để cho ứng dụng của chúng ta có một giao diện đẹp thì không thể thiếu các layouts, trong một giao diện có thể có nhiều layouts, trong một layout có thể có nhiều components và có thể căn chỉnh tùy theo ý muốn của người phát triển. Vì vậy, sau đây mình xin đưa ra một vài các layout mà mình đã được học:
+
+- Các layouts thường được dùng:
+    - **Linear layout:** cung cấp cho chúng ta các thuộc tính để sắp xếp các thành phần trong layout thành chiều dọc (vertical) hoặc chiều ngang (horizontal).
+    - **Relative layout:** đây là loại layout cho phép chúng ta thiết lập mối liên hệ hiển thị giữa các thành phần con với nhau.
+    - **Constraint layout:** là một layout mạnh, khuyến khích sử dụng vì nó giúp tạo ra các giao diện phức tạp, mềm dẻo (hạn chế tối đa sử dụng các layout lồng nhau). Theo mình thấy thì layout này giống với Relative Layout, tuy nhiên nó có độ mềm dẻo cao hơn một tí.
+- Các layout hiếm khi được sử dụng:
+    - **Frame layout:** đơn giản là vùng hiển thị 1 nội dung cụ thể nào đó. Nó chứa trong nó 1 thành phần view khác như 1 hình ảnh, 1 nút nhấn, 1 nhãn.
+    - **Table layout:** layout này ở bài thực hành có đề cập tới, tuy nhiên chỉ là ở phần ví dụ, nên mình chưa hiểu rõ lắm.
+    - **Grid layout:** layout này được mình nghiên cứu thêm ở trên mạng, mình cũng chưa hiểu rõ nên mình chỉ để từ khóa ở đây cho các bạn tự tìm hiểu nhé.
+- Kinh nghiệm rút ra:
+    - Khi thiết kế layout cho một Activity hoặc một Fragment thì việc sử dụng Relative Layout hoặc Constraint Layout là khuyến khích. Để các thành phần có thể tự căn chỉnh khi người dùng xoay ngang điện thoại, hoặc tự căn chỉnh trên các điện thoại có tỉ lệ màn hình khác nhau.
+    - Đối với việc thiết kế một item cho một List View thì nên sử dụng Linear Layout. Vì thường một item sẽ là một hàng ngang có các thành phần được xếp từ trái qua phải hoặc từ phải qua trái nên khi dùng Linear Layout sẽ dễ dàng hơn.
+
+Ví dụ về một RelativeLayout với hai TextView ở trong:
+```
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:text="textView1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:text="textView2">
+</RelativeLayout>
+```
+
 ## ListView, GridView và Spinner
 ## Animations
 ## Activity
