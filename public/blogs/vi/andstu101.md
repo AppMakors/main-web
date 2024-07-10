@@ -73,12 +73,13 @@ Các thành phần nâng cao trong một layout:
 - **SwipeRefreshLayout:** cung cấp cho ListView chức năng lướt xuống để refresh.
 
 Ví dụ về một thành phần EditText trong XML file:
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/tvLookUpContent"
-        android:layout_marginStart="5dp" />
+```xml
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/tvLookUpContent"
+    android:layout_marginStart="5dp" />
+```
 
 ## Layouts
 Để cho ứng dụng của chúng ta có một giao diện đẹp thì không thể thiếu các layouts, trong một giao diện có thể có nhiều layouts, trong một layout có thể có nhiều components và có thể căn chỉnh tùy theo ý muốn của người phát triển. Vì vậy, sau đây mình xin đưa ra một vài các layout mà mình đã được học:
@@ -96,7 +97,7 @@ Ví dụ về một thành phần EditText trong XML file:
     - Đối với việc thiết kế một item cho một List View thì nên sử dụng Linear Layout. Vì thường một item sẽ là một hàng ngang có các thành phần được xếp từ trái qua phải hoặc từ phải qua trái nên khi dùng Linear Layout sẽ dễ dàng hơn.
 
 Ví dụ về một RelativeLayout với hai TextView ở trong:
-```
+```xml
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -105,13 +106,13 @@ Ví dụ về một RelativeLayout với hai TextView ở trong:
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:text="textView1">
+        android:text="textView1"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:text="textView2">
+        android:text="textView2"/>
 </RelativeLayout>
 ```
 

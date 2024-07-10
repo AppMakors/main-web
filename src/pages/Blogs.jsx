@@ -5,13 +5,13 @@ import "../styles/Blogs.css"
 function BlogCard({blog}) {
 	return (
 		<div className="card-wrapper">
-			<Link className="card-img-wrapper" to={`.${import.meta.env.BASE_URL}blogs/${blog.id}`}>
+			<Link className="card-img-wrapper" to={`./${blog.id}`}>
 				<img height={150} width={150} src="./src/assets/react.svg" />
 			</Link>
 			<div className="card-info">
 				<div className="card-info-upper">
 					<div className="card-title">
-						<Link to={`.${import.meta.env.BASE_URL}blogs/${blog.id}`}>
+						<Link to={`./${blog.id}`}>
 							{blog.title}
 						</Link>
 					</div>
@@ -44,7 +44,7 @@ export default function Blogs() {
 		getBlogs();
     }, []);
 
-	console.log(blogs);
+	// console.log(blogs);
 
 	return (
 		<div className="blogs-main">
@@ -55,24 +55,5 @@ export default function Blogs() {
 			</div>
 		</div>
 	)
-
-	// return (
-	// 	<div className="content">
-	// 		<Markdown remarkPlugins={[remarkGfm]} 
-	// 			components={{
-	// 				h2(props) {
-	// 					return <h2 id={props.children.replace(' ', '-')} children={props.children}/>;
-	// 				},
-	// 				a(props) {
-	// 					if (props.href[0] === '#')
-	// 						return <a href={props.href} target="_self" children={props.children}/>;
-	// 					return <a href={props.href} target="_blank" children={props.children}/>;
-	// 				}
-	// 			}}
-
-	// 			children={content}
-	// 		/>
-	// 	</div>
-	// );
 } 
 
