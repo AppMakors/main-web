@@ -5,13 +5,14 @@ import "../styles/Blogs.css"
 function BlogCard({blog}) {
 	return (
 		<div className="card-wrapper">
-			<Link className="card-img-wrapper" to={`./${blog.id}`}>
+			<Link className="card-img-wrapper" to={`./${blog.id}`} onClick={() => localStorage.setItem("lang", `${blog.lang.toString()}`)}>
 				<img height={150} width={150} src={`${blog.imgSource}`} />
 			</Link>
 			<div className="card-info">
 				<div className="card-info-upper">
 					<div className="card-title">
-						<Link to={`./${blog.id}`}>
+						<Link to={`./${blog.id}`} 
+							  onClick={() => localStorage.setItem("lang", `${blog.lang.toString()}`)}>
 							{blog.title}
 						</Link>
 					</div>
@@ -36,7 +37,6 @@ export default function Blogs() {
     useEffect(() => {
 		async function getBlogs() {
 			const response = await fetch(`${location.origin}/main-web/blogs/blog_list.json`);
-			console.log(response);
 			const list = await response.json();
 
 			setBlogs(list);
@@ -44,17 +44,13 @@ export default function Blogs() {
 
 		getBlogs();
     }, []);
-
-	// console.log(blogs);
-
 	
-
 	return (
 		<div className="blogs-main">
 			<h1 className="blogs-title">AppMakors Blogs</h1>
 			<h2 className="blogs-introduction">A place where you can find useful tips and tricks</h2>
 			<div className="blogs-container">
-				{ blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />)	}
+				{ blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />) } 
 			</div>
 		</div>
 	)
