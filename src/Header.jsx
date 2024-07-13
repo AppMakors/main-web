@@ -10,14 +10,12 @@ import RubikIcon from "./assets/icon_rubik.svg"
 export default function Header() {
     // -1: home, 0: vocab, 1: rubik, 2: blogs, 3: about
     const [value, setValue] = useState(-1);
- 
-    const clickedStyle = {
-        filter: "brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%)",
-    }
 
     const getStyle = (_value) => {
         if (value == _value) {
-            return clickedStyle;
+            return {
+                filter: "brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%)",
+            };
         }
         return {};
     }
