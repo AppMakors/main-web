@@ -15,22 +15,22 @@ export default function Header() {
             <ul className="page-list">
                 <li>
                     <Link to={`${import.meta.env.BASE_URL}vocab`}>
-                        <img className="page-button" src={LanguagueIcon} alt="Logo"></img>
+                        <img className="page-button" src={LanguagueIcon} alt="Logo" title="Vocabulary Learning"></img>
                     </Link>
                 </li>
                 <li>
                     <Link to={`${import.meta.env.BASE_URL}rubiks`}>
-                        <img className="page-button" src={RubikIcon} alt="Logo"></img>
+                        <img className="page-button" src={RubikIcon} alt="Logo" title="Rubik's Timer"></img>
                     </Link>
                 </li>
                 <li>
                     <Link to={`${import.meta.env.BASE_URL}blogs`}>
-                        <img className="page-button" src={BlogIcon} alt="Logo"></img>
-                    </Link>    
+                        <img className="page-button" src={BlogIcon} alt="Logo" title="Blogs"></img>
+                    </Link>
                 </li>
                 <li>
                     <Link to={`${import.meta.env.BASE_URL}about`}>
-                        <img className="page-button" src={AboutIcon} alt="Logo"></img>
+                        <img className="page-button" src={AboutIcon} alt="Logo" title="About us"></img>
                     </Link>
                 </li>
             </ul>
