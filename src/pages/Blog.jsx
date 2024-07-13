@@ -22,7 +22,6 @@ export default function Blog() {
             setBlogContent(text);
         };
 
-		setLangList(prevLangList => prevLangList);
         getBlog(id);
     }, [id, lang]); // listen to the change of state of items in the list
 
@@ -68,8 +67,7 @@ export default function Blog() {
 									language={match ? match[1] : "markdown"}
 									style={ oneDark }
 								/>
-							)
-							
+							);
 						}
 					}}
 					

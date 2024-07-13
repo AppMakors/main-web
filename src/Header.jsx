@@ -22,7 +22,7 @@ export default function Header() {
     return (
         <div className="header">
             <Link to={`${import.meta.env.BASE_URL}`} className="link-logo">
-                <a class="fullLogo" onClick={() => setValue(-1)}>
+                <a class="full-logo" onClick={() => setValue(-1)}>
                     <div class="logo">&lt;</div>
                     <div class="shrink logo">AppMakors</div>
                     <div class="logo">/&gt;</div>

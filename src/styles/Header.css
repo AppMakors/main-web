@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 .header {
     top: 0;
     left: 0;
 
-    padding: 0 20px;
+    padding: 0 40px;
 
     display: flex;
     justify-content: space-between;
@@ -44,9 +46,14 @@
 .link-logo {
     display: flex;
     align-items: center;
+
+    font-family: "Varela Round";
+    font-weight: 800;
+    text-decoration: none;
+    color: white; 
 }
 
-.fullLogo {
+.full-logo {
     display: flex;
     width: max-content;
 
@@ -55,7 +62,6 @@
 
 .logo {
     transition: 0.4s;
-    color: white;
     font-size: 32px;
 }
 
@@ -65,11 +71,11 @@
     transition: 0.4s;
 }
 
-.fullLogo:hover .logo {
+.full-logo:hover .logo {
     transition: 0.4s;
 }
 
-.fullLogo:hover .shrink {
+.full-logo:hover .shrink {
     letter-spacing: 0;
 
     color: rgba(0, 0, 0, 0);
