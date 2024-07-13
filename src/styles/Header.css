@@ -34,11 +34,12 @@
     height: 32px;
 
     display: flex;
+    filter: none;
 }
 
 .page-button:hover {
     cursor: pointer;
 
     /* the filter below is gotten from https://angel-rs.github.io/css-color-filter-generator/ */
-    filter: brightness(0) saturate(100%) invert(29%) sepia(58%) saturate(4106%) hue-rotate(205deg) brightness(99%) contrast(109%);
+    filter: brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%);
 }
