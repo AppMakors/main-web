@@ -9,14 +9,9 @@
 
     height: 70px;
 
-    background-color:rgb(56, 55, 55);
+    background-color:rgb(45, 45, 45);
 
     border-bottom: 2px gray solid;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
 }
 
 .page-list {
@@ -26,10 +21,11 @@
     list-style: none;
 }
 
+/* PAGE ICONS */
 .page-button {
-    margin-left: 20px;
+    margin-left: 25px;
     padding: 5px;
-    text-decoration: none;
+    
     width: 32px;
     height: 32px;
 
@@ -42,4 +38,50 @@
 
     /* the filter below is gotten from https://angel-rs.github.io/css-color-filter-generator/ */
     filter: brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%);
+}
+
+/* LOGO ON TOP-LEFT CORNER */
+.link-logo {
+    display: flex;
+    align-items: center;
+}
+
+.fullLogo {
+    display: flex;
+    width: max-content;
+
+    cursor: pointer;
+}
+
+.logo {
+    transition: 0.4s;
+    color: white;
+    font-size: 32px;
+}
+
+.shrink {
+    letter-spacing: -1em;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+.fullLogo:hover .logo {
+    transition: 0.4s;
+}
+
+.fullLogo:hover .shrink {
+    letter-spacing: 0;
+
+    color: rgba(0, 0, 0, 0);
+    background-image: repeating-linear-gradient(to right, violet, cyan, violet);
+    background-clip: text;
+    transition: 0.4s;
+
+    animation: running-gradient 1000ms linear infinite reverse;
+}
+
+@keyframes running-gradient {
+    0% {
+        background-position: 400px;
+    }
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./styles/Header.css"
 import { Link } from "react-router-dom"
-import ReactLogo from "./assets/react.svg"
 import AboutIcon from "./assets/icon_about.svg"
 import BlogIcon from "./assets/icon_blog.svg"
 import LanguagueIcon from "./assets/icon_language.svg"
@@ -22,8 +21,12 @@ export default function Header() {
 
     return (
         <div className="header">
-            <Link to={`${import.meta.env.BASE_URL}`} className="logo">
-                <img src={ReactLogo} alt="Logo" onClick={() => setValue(-1)}/>
+            <Link to={`${import.meta.env.BASE_URL}`} className="link-logo">
+                <a class="fullLogo" onClick={() => setValue(-1)}>
+                    <div class="logo">&lt;</div>
+                    <div class="shrink logo">AppMakors</div>
+                    <div class="logo">/&gt;</div>
+                </a>
             </Link>
             <ul className="page-list">
                 <li>
