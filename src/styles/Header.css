@@ -25,7 +25,7 @@ html::-webkit-scrollbar-thumb
 	background-color: #555;
 }
 
-.header {
+header {
     top: 0;
     left: 0;
 
@@ -40,7 +40,9 @@ html::-webkit-scrollbar-thumb
 
     border-bottom: 2px gray solid;
 
-    position: sticky; /* let header stay on top of the page */
+    /* let header stay on top of the page */
+    position: sticky;
+    z-index: 999;
 }
 
 .page-list {

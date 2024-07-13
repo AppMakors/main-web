@@ -20,7 +20,7 @@ export default function Header() {
     }
 
     return (
-        <div className="header">
+        <header>
             <Link to={`${import.meta.env.BASE_URL}`} className="link-logo">
                 <a class="full-logo" onClick={() => setValue(-1)}>
                     <div class="logo">&lt;</div>
@@ -50,6 +50,6 @@ export default function Header() {
                     </Link>
                 </li>
             </ul>
-        </div>    
+        </header>    
     ); 
 }

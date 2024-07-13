@@ -33,47 +33,45 @@ export default function Blog() {
 	};
 
 	return (
-		<>
-			<div className="blog-content">
-				<select id="lang" onChange={(e) => setLang(e.target.value) }>
-					{
-						langList.map((langCode) => (<option key={langCode} value={langCode}>{langCodeToLang[langCode]}</option>))
+		<div className="blog-content">
+			<select id="lang" onChange={(e) => setLang(e.target.value) }>
+				{
+					langList.map((langCode) => (<option key={langCode} value={langCode}>{langCodeToLang[langCode]}</option>))
+				}
+			</select>
+			<Markdown remarkPlugins={[remarkGfm]} 
+				components={{
+					h2(props) {
+						return <h2 id={props.children
+											.toLowerCase()
+											.replaceAll(', ', '-')
+											.replaceAll(' ', '-')} 
+								children={props.children}/>;
+					},
+
+					a(props) {
+						if (props.href[0] === '#')
+							return <a href={props.href} children={props.children}/>;
+						return <a href={props.href} target="_blank" children={props.children}/>;
+					},
+
+					code(props) {
+						const {children, className, node, ...rest} = props
+						const match = /language-(\w+)/.exec(className || '')
+						return (
+							<SyntaxHighlighter
+								{...rest}
+								PreTag="div"
+								children={String(children).replace(/\n$/, '')}
+								language={match ? match[1] : "markdown"}
+								style={ oneDark }
+							/>
+						);
 					}
-				</select>
-				<Markdown remarkPlugins={[remarkGfm]} 
-					components={{
-						h2(props) {
-							return <h2 id={props.children
-												.toLowerCase()
-												.replaceAll(', ', '-')
-												.replaceAll(' ', '-')} 
-									children={props.children}/>;
-						},
-
-						a(props) {
-							if (props.href[0] === '#')
-								return <a href={props.href} children={props.children}/>;
-							return <a href={props.href} target="_blank" children={props.children}/>;
-						},
-
-						code(props) {
-							const {children, className, node, ...rest} = props
-							const match = /language-(\w+)/.exec(className || '')
-							return (
-								<SyntaxHighlighter
-									{...rest}
-									PreTag="div"
-									children={String(children).replace(/\n$/, '')}
-									language={match ? match[1] : "markdown"}
-									style={ oneDark }
-								/>
-							);
-						}
-					}}
-					
-					children={blogContent}
-				/>
-			</div>
-		</>
+				}}
+				
+				children={blogContent}
+			/>
+		</div>
 	);
 }
