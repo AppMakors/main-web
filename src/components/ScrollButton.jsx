@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UpIcon from "../assets/icon_up.svg"
+import UpIcon from "../assets/svg/icon_up.svg"
 
 export default function ScrollButton() {
     const [visible, setVisible] = useState(false);

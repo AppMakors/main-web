@@ -25,10 +25,6 @@ html {
 	background-color: #555;
 }
 
-body:not(.link-logo) {
-    font-family: "Source Sans 3";
-}
-
 body {
     padding: 0;
     margin: 0;

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./styles/Header.css"
 import { Link } from "react-router-dom"
-import AboutIcon from "./assets/icon_about.svg"
-import BlogIcon from "./assets/icon_blog.svg"
-import LanguagueIcon from "./assets/icon_language.svg"
-import RubikIcon from "./assets/icon_rubik.svg"
+import AboutIcon from "./assets/svg/icon_about.svg"
+import BlogIcon from "./assets/svg/icon_blog.svg"
+import LanguagueIcon from "./assets/svg/icon_language.svg"
+import RubikIcon from "./assets/svg/icon_rubik.svg"
  
 export default function Header() {
     const [curPage, setCurPage] = useState(location.pathname.split("/")[2]);
