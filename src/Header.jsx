@@ -29,13 +29,13 @@ export default function Header() {
             </Link>
             <ul className="page-list">
                 <li>
-                    <Link to={`${import.meta.env.BASE_URL}vocab`}>
-                        <img className="page-button" src={LanguagueIcon} title="Vocabulary Learning" onClick={() => setCurPage("vocab")} style={getStyle("vocab")}></img>
+                    <Link to={`${import.meta.env.BASE_URL}linguistics`}>
+                        <img className="page-button" src={LanguagueIcon} title="Linguistics" onClick={() => setCurPage("linguistics")} style={getStyle("linguistics")}></img>
                     </Link>
                 </li>
                 <li>
                     <Link to={`${import.meta.env.BASE_URL}rubiks`}>
-                        <img className="page-button" src={RubikIcon} title="Rubik's Timer" onClick={() => setCurPage("rubiks")} style={getStyle("rubiks")}></img>
+                        <img className="page-button" src={RubikIcon} title="Rubik's Timor" onClick={() => setCurPage("rubiks")} style={getStyle("rubiks")}></img>
                     </Link>
                 </li>
                 <li>
