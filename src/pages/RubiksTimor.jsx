@@ -34,8 +34,6 @@ export default function RubiksTimor() {
     const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
 
-    console.log(solves);
-
     const solveToDBPusher = (solve) => {
         if (user) {
             
@@ -143,8 +141,8 @@ function Timer({ user, solveToDBPusher, setSolves }) {
         }); 
 
         return () => {
-            document.removeEventListener("keydown");
-            document.removeEventListener("keyup");
+            document.removeEventListener("keydown", null);
+            document.removeEventListener("keyup", null);
         }
     }, []);
 
@@ -273,7 +271,6 @@ function SignIn() {
                 email: user.email,
                 photoURL: user.photoURL
             });
-        } else {
         }
     }
 
