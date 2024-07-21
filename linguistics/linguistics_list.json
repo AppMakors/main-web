@@ -1,0 +1,10 @@
+[
+    {
+        "id": "hiragana",
+        "title": "Hiragana Alphabet Practice",
+        "introduction": "A place where you can practice Hiragana alphabets",
+        "imgSource": "https://upload.wikimedia.org/wikipedia/commons/6/67/Japanese_Hiragana_kyokashotai_A.svg",
+        "authorLink": "https://github.com/votranphi",
+        "publishDate": "21/07/2024"
+    }
+]
