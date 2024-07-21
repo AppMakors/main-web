@@ -2,23 +2,57 @@ import "../assets/style.css"
 import "../styles/RubiksTimor.css"
 import {useState, useEffect} from 'react'
 
+import firebase from 'firebase/compat/app'; 
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth'; 
+
+import { useAuthState } from "react-firebase-hooks/auth"
+import { useCollectionData } from "react-firebase-hooks/firestore"
+
 var cstimerWorker=(function(){var worker=new Worker('node_modules/cstimer_module/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
 function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
 return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
 
+const firebaseConfig = {
+    apiKey: "AIzaSyCKjavn2bG5cJAgcL728Uly2J9r35xeqqk",
+    authDomain: "rubiks-timor.firebaseapp.com",
+    projectId: "rubiks-timor",
+    storageBucket: "rubiks-timor.appspot.com",
+    messagingSenderId: "700388105281",
+    appId: "1:700388105281:web:209361463dbab4338d7ac0",
+    measurementId: "G-KF9PDSXMLM"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const usersRef = db.collection("users"); 
+
 export default function RubiksTimor() {
+    const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
 
-    return <div className="rubiks-main" onClick={console.log("Load")}>
+    console.log(solves);
+
+    const solveToDBPusher = (solve) => {
+        if (user) {
+            
+        }
+    }
+
+    return <div className="rubiks-main">
         <div className="left-panel">
-            <ul className="solve-list"></ul>
+            {user ? <SignOut /> : <SignIn />}
+            {user ? <SolveList solves={solves} /> : "Not signed in yet"}
         </div>
 
         <div className="time-container">
             <Scramble />
 
             <div className="timer-wrapper">
-                <Timer />
+                <Timer user={user} pusher={solveToDBPusher} setSolves={setSolves}/>
                 <div className="ao5">
                     ao5
                 </div>
@@ -87,7 +121,6 @@ function ScrambleSettings({ setType, wca_events }) {
 }
 
 function ScrambleText({ scramble }) {
-    console.log(scramble);
     return <div className="scramble">{scramble}</div>;
 }
 
@@ -95,9 +128,29 @@ function ScrambleImage({ scrambleSvg }) {
     return <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
 }
 
-function Timer({ }) {
+function Timer({ user, solveToDBPusher, setSolves }) {
+    useEffect(() => {
+        document.addEventListener("keydown", (e) => { 
+            if (e.repeat)
+                return;
+            setHolding(true); setKey(e.code);
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.repeat)
+                return;
+            setHolding(false); setKey(e.code); 
+        }); 
+
+        return () => {
+            document.removeEventListener("keydown");
+            document.removeEventListener("keyup");
+        }
+    }, []);
+
     const ACTIVATION_KEY = "Space";
     const ACTIVATION_TIME = 300; // in miliseconds
+    const UI_UPDATING_FREQ = 1; // every miliseconds
 
     const [key, setKey] = useState();
 
@@ -109,19 +162,28 @@ function Timer({ }) {
     const [timingPoint, setTimingPoint] = useState(0);
     const [time, setTime] = useState(0);
 
-    const startHoldingHandler = () => {
+    const pushSolveToDB = () => {
+
+    }
+
+    const startHoldingHandler = (key) => {
         if (isTiming) {
             setTiming(false);
             setTime(new Date().getTime() - timingPoint);
+            setHoldingTime(0);
         } else if (key === ACTIVATION_KEY) {
+            setHolding(true);
             setHoldingPoint(new Date().getTime());
         }
     }
 
-    const stopHoldingHandler = () => {
-        if (holdingPoint !== 0) {
+    const stopHoldingHandler = (key) => {
+        setHolding(false);
+        if (holdingPoint != 0 && key === ACTIVATION_KEY) {
             const stopHoldingPoint = new Date().getTime();
             setHoldingTime(stopHoldingPoint - holdingPoint);
+            if (holdingTime >= ACTIVATION_TIME)
+                startTimingHandler();
         }
     }
 
@@ -134,26 +196,43 @@ function Timer({ }) {
     }
 
     const stopTimingHandler = () => {
-        const stopTimingPoint = new Date().getTime();
-        
-        setTime(stopTimingPoint - timingPoint);
-        console.log(stopTimingPoint - timingPoint);
-        
         setTimingPoint(0);
+        
+        const newSolve = {
+            type: "",
+            scramble: "",
+            time: time
+        }
+
+        setSolves((old) => [newSolve, ...old]);
     }
 
     useEffect(() => {
-        isHolding ? startHoldingHandler() : stopHoldingHandler();
+        isHolding ? startHoldingHandler(key) : stopHoldingHandler(key);
     }, [isHolding]);
 
     useEffect(() => {
-        if (holdingTime >= ACTIVATION_TIME)
-            startTimingHandler();
-    }, [holdingTime]);
+        var id;
+        if (isHolding && holdingPoint > 0) {
+            id = setInterval(
+                () => { 
+                    setHoldingTime(new Date().getTime() - holdingPoint);
+                },
+                UI_UPDATING_FREQ
+            );
+        }
+
+        return () => {
+            clearInterval(id);
+        }
+    }, [holdingPoint]);
 
     useEffect(() => {
         if (isTiming) {
-            const id = setInterval(() => setTime(new Date().getTime() - timingPoint), 1);
+            const id = setInterval(
+                () => setTime(new Date().getTime() - timingPoint),
+                UI_UPDATING_FREQ
+            );
             
             return () => {
                 clearInterval(id);
@@ -163,11 +242,62 @@ function Timer({ }) {
             stopTimingHandler();
         }
     }, [isTiming]);
+    
+    const holdingPercent = holdingTime / ACTIVATION_TIME * 100;
+    return (
+        <div className={`time ${isHolding && "holding"} ${isTiming && "timing"}`} 
+             style= { 
+                        (isHolding && key === ACTIVATION_KEY && holdingPercent < 100) 
+                        ? { "--percent": `${holdingPercent}%`, color: "rgba(0, 0, 0, 0.1)" } 
+                        : (isHolding && key === ACTIVATION_KEY) 
+                        ? { color: "#66FF00" } 
+                        : {}
+                    }
+             children={(time / 1000).toFixed(3)}
+        />
+    );
+}
 
-    useEffect(() => {
-        window.addEventListener("keydown", (e) => { setHolding(true); setKey(e.code); } ); 
-        window.addEventListener("keyup", (e) => { setHolding(false); setKey(); }); 
-    }, []);
+function SignIn() {
+    const googleSignIn = async () => {
+        const provider = new firebase.auth.GoogleAuthProvider(); 
+        await auth.signInWithPopup(provider); // popup the window for signing in
 
-    return <div className="time">{(time / 1000).toFixed(3)}</div>
+        const user = auth.currentUser;
+        const userRes = await usersRef.doc(user.uid).get();
+        
+        if (!userRes.exists) {
+            // create a new document in the users collection
+            usersRef.doc(auth.currentUser.uid).set({
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL
+            });
+        } else {
+        }
+    }
+
+    return <button className="auth-button" onClick={googleSignIn}>
+        Sign In
+    </button>
+}
+
+function SignOut() {
+    return auth.currentUser && (
+        <button className="auth-button" onClick={() => auth.signOut()}>
+            Sign out
+        </button>
+    )
+}
+
+function SolveList({ solves }) {
+    const n = solves.length;
+    return <ul className="solve-list">
+        {solves.map((solve, index) => {
+            return <li className="solve" key={`solve${index}`}>
+                <span>{n - index - 1}</span>
+                <span>{ (solve.time / 1000).toFixed(3) }</span>
+            </li>
+        })}
+    </ul>
 }
