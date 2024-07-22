@@ -47,7 +47,7 @@ export default function RubiksTimor() {
             <Scramble signal={signal}/>
 
             <div className="timer-wrapper">
-                <Timer user={user} setSolves={setSolves} signal={signal} setSignal={setSignal}/>
+                <Timer user={user} setSolves={setSolves} setSignal={setSignal}/>
                 <div className="ao5">
                     ao5
                 </div>
@@ -120,7 +120,7 @@ function Scramble({ signal }) {
     </div>
 }
 
-function Timer({ setSolves, signal, setSignal }) {
+function Timer({ setSolves, setSignal }) {
     useEffect(() => {
         document.addEventListener("keydown", (e) => { 
             if (e.repeat)
@@ -193,8 +193,7 @@ function Timer({ setSolves, signal, setSignal }) {
         }
 
         setSolves((old) => [newSolve, ...old]);
-
-        setSignal(!signal);
+        setSignal((oldSignal) => !oldSignal);
     }
 
     useEffect(() => {
