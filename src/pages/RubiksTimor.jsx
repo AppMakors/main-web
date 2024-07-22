@@ -29,6 +29,7 @@ const usersRef = db.collection("users");
 export default function RubiksTimor() {
     const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
+    const [signal, setSignal] = useState(false);
     
     const solveToDBPusher = (solve) => {
         if (user) {
@@ -43,10 +44,10 @@ export default function RubiksTimor() {
         </div>
 
         <div className="time-container">
-            <Scramble />
+            <Scramble signal={signal}/>
 
             <div className="timer-wrapper">
-                <Timer user={user} setSolves={setSolves}/>
+                <Timer user={user} setSolves={setSolves} signal={signal} setSignal={setSignal}/>
                 <div className="ao5">
                     ao5
                 </div>
@@ -58,14 +59,12 @@ export default function RubiksTimor() {
     </div>
 }
 
-function Scramble({ }) {
-    var cstimerWorker=(function(){var worker=new Worker('node_modules/cstimer_module/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
+function Scramble({ signal }) {
+    const cstimerWorker=(function(){var worker=new Worker('/main-web/src/modules/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
     function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
     return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
     
-    const [type, setType] = useState(0);
-    
-    var wca_events = [
+    const wca_events = [
         ["3x3x3", "333", 0],
         ["2x2x2", "222so", 0],
         ["4x4x4", "444wca", 0],
@@ -84,49 +83,44 @@ function Scramble({ }) {
         ["5x5 bld", "555bld", 60],
         ["3x3 mbld", "r3ni", 5]
     ];
-
+    
+    const [type, setType] = useState(0);
     const [scramble, setScramble] = useState("");
     const [scrambleSvg, setScrambleSvg] = useState("");
+    const [renewSignal, setRenewSignal] = useState(false);
 
+    // listen to the changes of:
+    // 1. type (user selects scramble's type)
+    // 2. signal (renew signal from Timer's stop handler)
+    // 3. renewSignal (renew signal when user clicks next button)
     useEffect(() => {
-        async function hehe() {
+        async function setScrambleAndScrambleSvg() {
             const scrRes = await cstimerWorker.getScramble(wca_events[type][1], wca_events[type][2]);
             setScramble(await scrRes);
+            
             const svgRes = await cstimerWorker.getImage(scrRes, wca_events[type][1]);
             setScrambleSvg(await svgRes);
         }
 
-        hehe();
-    }, [type])
+        setScrambleAndScrambleSvg();
+    }, [type, signal, renewSignal])
 
     return <div>
-        <ScrambleSettings setType={setType} wca_events={wca_events} />
-        <ScrambleText scramble={scramble} />
-        <ScrambleImage scrambleSvg={scrambleSvg} />
+        <div className="scramble-settings">
+            <select onChange={(e) => {setType(e.target.value)}}>
+                {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
+            </select>
+
+            <button onClick={() => {}}>left</button>
+
+            <button onClick={() => {setRenewSignal(!renewSignal);}}>right</button>
+        </div>
+        <div className="scramble">{scramble}</div>
+        <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
     </div>
 }
 
-function ScrambleSettings({ setType, wca_events }) {
-    return <div className="scramble-settings">
-        <select onChange={(e) => {setType(e.target.value)}}>
-            {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
-        </select>
-
-        <button onClick={(e) => {}}>left</button>
-
-        <button onClick={(e) => {}}>right</button>
-    </div>
-}
-
-function ScrambleText({ scramble }) {
-    return <div className="scramble">{scramble}</div>;
-}
-
-function ScrambleImage({ scrambleSvg }) {
-    return <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
-}
-
-function Timer({ setSolves }) {
+function Timer({ setSolves, signal, setSignal }) {
     useEffect(() => {
         document.addEventListener("keydown", (e) => { 
             if (e.repeat)
@@ -199,6 +193,8 @@ function Timer({ setSolves }) {
         }
 
         setSolves((old) => [newSolve, ...old]);
+
+        setSignal(!signal);
     }
 
     useEffect(() => {

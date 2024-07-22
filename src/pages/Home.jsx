@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-
-// const blogs = require.context("public/blogs/vi", true);
+import CubeLoader from "../components/global/CubeLoader.jsx"
 
 export default function Home() {    
-    return <div>Home</div>;
+    return <CubeLoader />;
 }
