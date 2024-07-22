@@ -71,7 +71,7 @@ export default function Hiragana() {
 }
 
 function myRandom(min, max) {
-    return parseInt(new Date().getTime() % (max - min + 1) + min);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Fisher–Yates Shuffle Algorithm: https://bost.ocks.org/mike/shuffle/
