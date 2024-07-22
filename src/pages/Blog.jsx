@@ -20,7 +20,7 @@ export default function Blog() {
             const response = await fetch(`./${lang}/${id}.md`);
             const text = await response.text();
 
-			await new Promise(resolve => setTimeout(resolve, 3600000));
+			await new Promise(resolve => setTimeout(resolve, 2000));
 
             setBlogContent(text);
         };
