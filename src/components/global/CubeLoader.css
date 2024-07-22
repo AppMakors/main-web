@@ -1,6 +1,6 @@
-*,
-*:after,
-*:before {
+.anim-body *,
+.anim-body *:after,
+.anim-body *:before {
     box-sizing: border-box;
     transform-style: preserve-3d;
 }
@@ -20,8 +20,13 @@
     --rotation-y: -24;
     --rotation-x: 28;
     --color-one: yellow;
-    --color-two: blue;
-    --color-three: red;
+    --color-two: red;
+    --color-three: blue;
+    --color-four: white;
+    --color-five: orange;
+    --color-six: #66ff00;
+    --black-line-outside: 2.5px;
+    --black-line-inside: 5px
 }
 
 .scene {
@@ -161,10 +166,13 @@
 .cuboid__side {
     background: var(--color);
     position: absolute;
+
+    border: var(--black-line-outside) black solid;
 }
 
 .cuboid__side:nth-of-type(1) {
     --b: 1.1;
+    /* --color: black; */
     height: calc(var(--depth, 20) * var(--coefficient));
     width: 100%;
     top: 0;
@@ -220,36 +228,36 @@
 
 .line-1 {
     position: absolute;
-    
+
     height: 100%;
-    
-    margin-left: calc(100% / 3);
+
+    margin-left: calc(100% / 3 - var(--black-line-inside));
     border-left: var(--black-line-inside) black solid;
-  }
-  
-  .line-2 {
+}
+
+.line-2 {
     position: absolute;
-    
+
     height: 100%;
-    
-    margin-left: calc(2 * 100% / 3);
+
+    margin-left: calc(2 * 100% / 3 - var(--black-line-inside));
     border-right: var(--black-line-inside) black solid;
-  }
-  
-  .line-3 {
+}
+
+.line-3 {
     position: absolute;
-    
+
     width: 100%;
-    
+
     margin-top: calc(100% / 3);
     border-top: var(--black-line-inside) black solid;
-  }
-  
-  .line-4 {
+}
+
+.line-4 {
     position: absolute;
-    
+
     width: 100%;
-    
+
     margin-top: calc(2 * 100% / 3);
     border-bottom: var(--black-line-inside) black solid;
-  }
+}

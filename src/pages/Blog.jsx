@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import "../styles/Blog.css";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import CubeLoader from "../components/global/CubeLoader.jsx"
 
 export default function Blog() {
 	const stringId = "id";
@@ -19,11 +20,17 @@ export default function Blog() {
             const response = await fetch(`./${lang}/${id}.md`);
             const text = await response.text();
 
+			await new Promise(resolve => setTimeout(resolve, 3600000));
+
             setBlogContent(text);
         };
 
         getBlog(id);
     }, [id, lang]); // listen to the change of state of items in the list
+
+	if (!blogContent.length) {
+		return <CubeLoader />
+	}
 
 	const langCodeToLang = {
 		"vi": "Tiếng Việt",
