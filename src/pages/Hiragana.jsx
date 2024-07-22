@@ -11,6 +11,8 @@ export default function Hiragana() {
 			const response = await fetch(`${location.origin}/main-web/linguistics/hiragana/alphabet.json`);
 			const responseList = await response.json();
 
+            await new Promise(resolve => setTimeout(resolve, 2000));
+
             setLetters(responseList);
 		}
 
