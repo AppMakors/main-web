@@ -1,0 +1,39 @@
+.hiragana-main {
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+.hiragana-main p {
+    color: white;
+    font-size: 100px;
+}
+
+.choice-row button {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    
+    font-size: 50px;
+
+    border-radius: 5px;
+    border: 2px black solid;
+
+    cursor: pointer;
+}
+
+.choice-row button:hover:not(.wrong-ans, .right-ans) {
+    background-color: white;
+}
+
+.ans {
+    background-color: darkgray;
+}
+
+.wrong-ans {
+    background-color: red;
+}
+
+.right-ans {
+    background-color: #66FF00;
+}

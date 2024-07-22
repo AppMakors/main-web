@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/Hiragana.css"
+import CubeLoader from "../components/global/CubeLoader.jsx"
 
 export default function Hiragana() {
     const [letters, setLetters] = useState([]);
@@ -17,7 +18,7 @@ export default function Hiragana() {
     }, [])
 
     if (!letters.length) 
-        return <>Loading</>;
+        return <CubeLoader />;
 
     const letterIdx = myRandom(0, letters.length - 1);
     const isRomanji = myRandom(0, 1);
@@ -39,22 +40,26 @@ export default function Hiragana() {
         }
     }
 
+    const choiceHandler = (e) => {
+        if (e.target.value !== letters[letterIdx][isRomanji ^ 1]) {
+            e.target.classList.add("wrong-ans");
+            e.target.classList.remove("ans");
+            const id = setTimeout(() => {e.target.classList.remove("wrong-ans"); e.target.classList.add("ans"); clearTimeout(id);}, 300);
+        } else {
+            e.target.classList.remove("ans");
+            e.target.classList.add("right-ans");
+            const id = setTimeout(() => { e.target.classList.remove("right-ans"); e.target.classList.add("ans"); clearTimeout(id); }, 300);
+            const id1 = setTimeout(() => { setSignal(!signal); clearTimeout(id1); }, 100);
+        }
+    };
+
 	return (
-		<div className="hiragana-main" style={{width: "fit-content", margin: "auto", color: "white", fontSize: "100px"}}>
+		<div className="hiragana-main">
             <p>{letter}</p>
 
             <div className="choice-row">
-                {choices.map((v, i) => <button key={new Date().getTime() + i} value={v}>{v}</button>)}
+                {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
             </div>
-
-            <select onChange={(e) => {
-                if (e.target.value === letters[letterIdx][isRomanji ^ 1]) {
-                    setSignal(!signal);
-                }
-            }} style={{fontSize: "50px"}}>
-                {choices.map((v, i) => <option key={new Date().getTime() + i} value={v}>{v}</option>)}
-                <option selected={"selected"}></option>
-            </select>
         </div>
 	)
 }
