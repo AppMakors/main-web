@@ -9,10 +9,6 @@ import 'firebase/compat/auth';
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
-var cstimerWorker=(function(){var worker=new Worker('node_modules/cstimer_module/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
-function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
-return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
-
 const firebaseConfig = {
     apiKey: "AIzaSyCKjavn2bG5cJAgcL728Uly2J9r35xeqqk",
     authDomain: "rubiks-timor.firebaseapp.com",
@@ -33,13 +29,13 @@ const usersRef = db.collection("users");
 export default function RubiksTimor() {
     const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
-
+    
     const solveToDBPusher = (solve) => {
         if (user) {
             
         }
     }
-
+    
     return <div className="rubiks-main">
         <div className="left-panel">
             {user ? <SignOut /> : <SignIn />}
@@ -50,7 +46,7 @@ export default function RubiksTimor() {
             <Scramble />
 
             <div className="timer-wrapper">
-                <Timer user={user} pusher={solveToDBPusher} setSolves={setSolves}/>
+                <Timer user={user} setSolves={setSolves}/>
                 <div className="ao5">
                     ao5
                 </div>
@@ -63,8 +59,12 @@ export default function RubiksTimor() {
 }
 
 function Scramble({ }) {
+    var cstimerWorker=(function(){var worker=new Worker('node_modules/cstimer_module/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
+    function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
+    return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
+    
     const [type, setType] = useState(0);
-
+    
     var wca_events = [
         ["3x3x3", "333", 0],
         ["2x2x2", "222so", 0],
@@ -126,7 +126,7 @@ function ScrambleImage({ scrambleSvg }) {
     return <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
 }
 
-function Timer({ user, solveToDBPusher, setSolves }) {
+function Timer({ setSolves }) {
     useEffect(() => {
         document.addEventListener("keydown", (e) => { 
             if (e.repeat)
@@ -159,10 +159,6 @@ function Timer({ user, solveToDBPusher, setSolves }) {
     const [isTiming, setTiming] = useState(false);
     const [timingPoint, setTimingPoint] = useState(0);
     const [time, setTime] = useState(0);
-
-    const pushSolveToDB = () => {
-
-    }
 
     const startHoldingHandler = (key) => {
         if (isTiming) {

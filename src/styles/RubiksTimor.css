@@ -92,6 +92,7 @@
 .solve-list {
     color: white;
     font-family: "Source sans 3";
+    font-weight: 500;
     font-size: 1.5em;
 
     margin: 10px auto;

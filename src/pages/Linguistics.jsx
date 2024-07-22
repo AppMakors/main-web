@@ -48,7 +48,7 @@ export default function Linguistics() {
 	return (
 		<div className="blogs-main">
 			<h1 className="blogs-title">Linguistics Applications</h1>
-			<h2 className="blogs-introduction">A place where you can find useful applications for lingustics</h2>
+			<h2 className="blogs-introduction">A place where you can find useful applications for linguistics</h2>
 			<div className="blogs-container">
 				{ blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />) } 
 			</div>
