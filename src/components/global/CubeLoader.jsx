@@ -1,48 +1,50 @@
 import "./CubeLoader.css"
 
 export default function CubeLoader() {
-    return <div class="scene">
-        <div class="shadow"></div>
-        <div class="jumper">
-            <div class="spinner">
-                <div class="scaler">
-                    <div class="loader">
-                        <div class="cuboid">
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
-                            </div>
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
-                            </div>
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
-                            </div>
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
-                            </div>
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
-                            </div>
-                            <div class="cuboid__side">
-                                <div class="line-1"></div>
-                                <div class="line-2"></div>
-                                <div class="line-3"></div>
-                                <div class="line-4"></div>
+    return <div className="anim-body">
+        <div className="scene">
+            <div className="shadow"></div>
+            <div className="jumper">
+                <div className="spinner">
+                    <div className="scaler">
+                        <div className="loader">
+                            <div className="cuboid">
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
+                                <div className="cuboid__side">
+                                    <div className="line-1"></div>
+                                    <div className="line-2"></div>
+                                    <div className="line-3"></div>
+                                    <div className="line-4"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
