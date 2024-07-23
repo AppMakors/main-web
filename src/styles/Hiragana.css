@@ -10,8 +10,8 @@
 }
 
 .choice-row button {
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     margin: 20px;
     
     font-size: 50px;
@@ -42,21 +42,61 @@
     font-family: "Varela Round";
 
     height: fit-content;
-    width: fit-content;
+    width: 200px;
+
     border: 1px black solid;
     border-radius: 5px;
-
     background-color: darkgray;
-
     font-size: 25px;
+    padding: 5px;
 
     position: absolute;
     bottom: 10px;
     left: 50%;
-
     transform: translateX(-50%);
 }
 
 .alphabet-button:hover {
     background-color: white;
+}
+
+.alphabet-dialog {
+    height: 75%;
+    width: 75%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+
+    background-color: darkgrey;
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+    border-radius: 15px;
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.alphabet-row {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+
+    margin: auto;
+}
+
+.alphabet-image {
+    width: 125px;
+    margin: 20px;
+
+    border: 4px black solid;
+    border-radius: 10px;
+    background-color: white;
+
+    transition: transform .2s;
+}
+
+.alphabet-image:hover {
+    background-color: cyan;
+    transform: scale(1.25);
 }

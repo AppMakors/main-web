@@ -10,10 +10,10 @@ export default function Hiragana() {
 
     useEffect(() => {
         async function getLetters() {
-            const response = await fetch(`${location.origin}/main-web/linguistics/hiragana/alphabet.json`);
+            const response = await fetch(`${location.origin}/main-web/linguistics/hiragana/alphabet_full.json`);
             const responseList = await response.json();
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // await new Promise(resolve => setTimeout(resolve, 2000));
 
             setLetters(responseList);
         }
@@ -67,9 +67,44 @@ export default function Hiragana() {
                 {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
             </div>
 
-            <button className="alphabet-button" onClick={() => {}}>Show Alphabet</button>
+            <Alphabet letters={letters}/>
         </div>
     )
+}
+
+function Alphabet({ letters }) {
+    const [isOpened, setOpen] = useState(false);
+
+    return <>
+        <button className="alphabet-button" onClick={() => setOpen(!isOpened)}>{isOpened ? "Close" : "Show alphabet"}</button>
+
+        {isOpened && <div className="alphabet-dialog">
+            <AlphabetRows letters={letters}/>
+        </div>}
+    </>
+}
+
+function AlphabetRows({ letters }) {
+    var i = 0;
+    var divs = [];
+
+    while (i < letters.length) {
+        var romanjiArr = [];
+        
+        if (i === 35 || i === 43 || (i >= 71 && i % 3 === 2)) {
+            for (var j = 0; j < 3; j++) romanjiArr.push(letters[i + j][1]);
+            i += 3;
+        } else {
+            for (var j = 0; j < 5; j++) romanjiArr.push(letters[i + j][1]);
+            i += 5;
+        }
+
+        divs.push(<div className="alphabet-row">
+            {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/hira/${v}.png`}/>)}
+        </div>);
+    }
+
+    return divs;
 }
 
 function myRandom(min, max) {

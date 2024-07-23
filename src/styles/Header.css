@@ -37,6 +37,8 @@ header {
 
     display: flex;
     filter: none;
+
+    transition: transform .2s;
 }
 
 .page-button:hover {
@@ -44,6 +46,8 @@ header {
 
     /* the filter below is gotten from https://angel-rs.github.io/css-color-filter-generator/ */
     filter: brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%);
+
+    transform: scale(1.25);
 }
 
 /* LOGO ON TOP-LEFT CORNER */
