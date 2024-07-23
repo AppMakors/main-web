@@ -9,45 +9,40 @@ import 'firebase/compat/auth';
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCKjavn2bG5cJAgcL728Uly2J9r35xeqqk",
-    authDomain: "rubiks-timor.firebaseapp.com",
-    projectId: "rubiks-timor",
-    storageBucket: "rubiks-timor.appspot.com",
-    messagingSenderId: "700388105281",
-    appId: "1:700388105281:web:209361463dbab4338d7ac0",
-    measurementId: "G-KF9PDSXMLM"
-};
+// const firebaseConfig = {
+//     apiKey: "AIzaSyCKjavn2bG5cJAgcL728Uly2J9r35xeqqk",
+//     authDomain: "rubiks-timor.firebaseapp.com",
+//     projectId: "rubiks-timor",
+//     storageBucket: "rubiks-timor.appspot.com",
+//     messagingSenderId: "700388105281",
+//     appId: "1:700388105281:web:209361463dbab4338d7ac0",
+//     measurementId: "G-KF9PDSXMLM"
+// };
 
-const app = firebase.initializeApp(firebaseConfig);
+// const app = firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+// const auth = firebase.auth();
+// const db = firebase.firestore();
 
-const usersRef = db.collection("users"); 
+// const usersRef = db.collection("users"); 
 
 export default function RubiksTimor() {
-    const [user] = useAuthState(auth);
+    // const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
     const [signal, setSignal] = useState(false);
     
-    const solveToDBPusher = (solve) => {
-        if (user) {
-            
-        }
-    }
-    
     return <div className="rubiks-main">
         <div className="left-panel">
-            {user ? <SignOut /> : <SignIn />}
-            {user ? <SolveList solves={solves} /> : "Not signed in yet"}
+            {/* {user ? <SignOut /> : <SignIn />}
+            {user ? <SolveList solves={solves} /> : "Not signed in yet"} */}
+            <SolveList solves={solves} />
         </div>
 
         <div className="time-container">
             <Scramble signal={signal}/>
 
             <div className="timer-wrapper">
-                <Timer user={user} setSolves={setSolves} setSignal={setSignal}/>
+                <Timer setSolves={setSolves} setSignal={setSignal}/>
                 <div className="ao5">
                     ao5
                 </div>
@@ -247,36 +242,36 @@ function Timer({ setSolves, setSignal }) {
     );
 }
 
-function SignIn() {
-    const googleSignIn = async () => {
-        const provider = new firebase.auth.GoogleAuthProvider(); 
-        await auth.signInWithPopup(provider); // popup the window for signing in
+// function SignIn() {
+//     const googleSignIn = async () => {
+//         const provider = new firebase.auth.GoogleAuthProvider(); 
+//         await auth.signInWithPopup(provider); // popup the window for signing in
 
-        const user = auth.currentUser;
-        const userRes = await usersRef.doc(user.uid).get();
+//         const user = auth.currentUser;
+//         const userRes = await usersRef.doc(user.uid).get();
         
-        if (!userRes.exists) {
-            // create a new document in the users collection
-            usersRef.doc(auth.currentUser.uid).set({
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL
-            });
-        }
-    }
+//         if (!userRes.exists) {
+//             // create a new document in the users collection
+//             usersRef.doc(auth.currentUser.uid).set({
+//                 displayName: user.displayName,
+//                 email: user.email,
+//                 photoURL: user.photoURL
+//             });
+//         }
+//     }
 
-    return <button className="auth-button" onClick={googleSignIn}>
-        Sign In
-    </button>
-}
+//     return <button className="auth-button" onClick={googleSignIn}>
+//         Sign In
+//     </button>
+// }
 
-function SignOut() {
-    return auth.currentUser && (
-        <button className="auth-button" onClick={() => auth.signOut()}>
-            Sign out
-        </button>
-    )
-}
+// function SignOut() {
+//     return auth.currentUser && (
+//         <button className="auth-button" onClick={() => auth.signOut()}>
+//             Sign out
+//         </button>
+//     )
+// }
 
 function SolveList({ solves }) {
     const n = solves.length;
