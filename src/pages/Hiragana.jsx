@@ -66,6 +66,8 @@ export default function Hiragana() {
             <div className="choice-row">
                 {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
             </div>
+
+            <button className="alphabet-button" onClick={() => {}}>Show Alphabet</button>
         </div>
     )
 }
