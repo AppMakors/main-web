@@ -6,6 +6,10 @@
     overflow: hidden;
 }
 
+.rubiks-main * {
+    scrollbar-width: none;
+}
+
 .left-panel {
     width: 15%;
     border-right: 1px white solid;
@@ -105,6 +109,8 @@
 .solve, .solve-list-header {
     display: flex;
     justify-content: space-between;
+
+    z-index: 2;
 }
 
 .solve-list li {
@@ -113,3 +119,15 @@
     padding: 0 10px;
 }
 
+.solve-list li span {
+    pointer-events: none;
+}
+
+.solve-info-card {
+    position: absolute;
+    background-color: black;
+    color: white;
+
+    width: fit-content;
+    z-index: 100;
+}

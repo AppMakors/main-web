@@ -1,60 +1,20 @@
-import "../assets/style.css"
-import "../styles/RubiksTimor.css"
-import {useState, useEffect} from 'react'
-
-import firebase from 'firebase/compat/app'; 
-import 'firebase/compat/firestore';
-import 'firebase/compat/auth'; 
-
-import { useAuthState } from "react-firebase-hooks/auth"
-import { useCollectionData } from "react-firebase-hooks/firestore"
-
-// const firebaseConfig = {
-//     apiKey: "AIzaSyCKjavn2bG5cJAgcL728Uly2J9r35xeqqk",
-//     authDomain: "rubiks-timor.firebaseapp.com",
-//     projectId: "rubiks-timor",
-//     storageBucket: "rubiks-timor.appspot.com",
-//     messagingSenderId: "700388105281",
-//     appId: "1:700388105281:web:209361463dbab4338d7ac0",
-//     measurementId: "G-KF9PDSXMLM"
-// };
-
-// const app = firebase.initializeApp(firebaseConfig);
-
-// const auth = firebase.auth();
-// const db = firebase.firestore();
-
-// const usersRef = db.collection("users"); 
+import "../assets/style.css";
+import "../styles/RubiksTimor.css";
+import {useState, useEffect} from 'react';
 
 export default function RubiksTimor() {
-    // const [user] = useAuthState(auth);
     const [solves, setSolves] = useState([]);
-    const [signal, setSignal] = useState(false);
     
     return <div className="rubiks-main">
         <div className="left-panel">
-            {/* {user ? <SignOut /> : <SignIn />}
-            {user ? <SolveList solves={solves} /> : "Not signed in yet"} */}
             <SolveList solves={solves} />
         </div>
 
-        <div className="time-container">
-            <Scramble signal={signal}/>
-
-            <div className="timer-wrapper">
-                <Timer setSolves={setSolves} setSignal={setSignal}/>
-                <div className="ao5">
-                    ao5
-                </div>
-                <div className="ao12">
-                    ao12
-                </div>
-            </div>
-        </div>
+        <TimeContainer setSolves={setSolves}/>
     </div>
 }
 
-function Scramble({ signal }) {
+function Scramble({ solveTime, setScrambleAndType }) {
     const cstimerWorker=(function(){var worker=new Worker('/main-web/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
     function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
     return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
@@ -95,12 +55,17 @@ function Scramble({ signal }) {
             
             const svgRes = await cstimerWorker.getImage(scrRes, wca_events[type][1]);
             setScrambleSvg(await svgRes);
+
+            setScrambleAndType({
+                scramble: scrRes,
+                type: type
+            });
         }
 
         setScrambleAndScrambleSvg();
-    }, [type, signal, renewSignal])
+    }, [type, solveTime, renewSignal]);
 
-    return <div>
+    return <>
         <div className="scramble-settings">
             <select onChange={(e) => {setType(e.target.value)}}>
                 {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
@@ -110,10 +75,10 @@ function Scramble({ signal }) {
         </div>
         <div className="scramble">{scramble}</div>
         <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
-    </div>
+    </>
 }
 
-function Timer({ setSolves, setSignal }) {
+function Timer({ setSolveTime }) {
     useEffect(() => {
         document.addEventListener("keydown", (e) => { 
             if (e.repeat)
@@ -179,14 +144,7 @@ function Timer({ setSolves, setSignal }) {
     const stopTimingHandler = () => {
         setTimingPoint(0);
         
-        const newSolve = {
-            type: "",
-            scramble: "",
-            time: time
-        }
-
-        setSolves((old) => [newSolve, ...old]);
-        setSignal((oldSignal) => !oldSignal);
+        setSolveTime(time);
     }
 
     useEffect(() => {
@@ -240,6 +198,36 @@ function Timer({ setSolves, setSignal }) {
     );
 }
 
+function TimeContainer({ setSolves }) {
+    const [scrambleAndType, setScrambleAndType] = useState({});
+    const [solveTime, setSolveTime] = useState(-1);
+
+    useEffect(() => {
+        if (solveTime !== -1) {
+            const newSolve = {
+                time: solveTime,
+                scramble: scrambleAndType.scramble,
+                type: scrambleAndType.type,
+            };
+            setSolves((oldSolves) => [...oldSolves, newSolve]);
+        }
+    }, [solveTime]);
+
+    return <div className="time-container">
+        <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType}/>
+
+        <div className="timer-wrapper">
+            <Timer setSolveTime={setSolveTime}/>
+            <div className="ao5">
+                ao5
+            </div>
+            <div className="ao12">
+                ao12
+            </div>
+        </div>
+    </div>
+}
+
 function SolveList({ solves }) {
     const n = solves.length;
     return <ul className="solve-list">        
@@ -249,47 +237,35 @@ function SolveList({ solves }) {
             <span>ao5</span>    
             <span>ao12</span>
         </div>
-        <table>
-
-        </table>
-        {solves.map((solve, index) => {
-            return <li className="solve" key={`solve${index}`} onMouseEnter={() => {}} onMouseLeave={() => {}}>
-                <span>{ n - index - 1 }</span>
-                <span>{ (solve.time / 1000).toFixed(3) }</span>
-                <span>{ (solve.time / 1000).toFixed(3) }</span>
-                <span>{ (solve.time / 1000).toFixed(3) }</span>
-            </li>
-        })}
+        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solve={solves[n - index - 1]} />)}
     </ul>
 }
 
-// function SignIn() {
-//     const googleSignIn = async () => {
-//         const provider = new firebase.auth.GoogleAuthProvider(); 
-//         await auth.signInWithPopup(provider); // popup the window for signing in
+function SolveItem({ index, solve }) {
+    const [hoverObject, setHoverObject] = useState({ isHover: false });
 
-//         const user = auth.currentUser;
-//         const userRes = await usersRef.doc(user.uid).get();
-        
-//         if (!userRes.exists) {
-//             // create a new document in the users collection
-//             usersRef.doc(auth.currentUser.uid).set({
-//                 displayName: user.displayName,
-//                 email: user.email,
-//                 photoURL: user.photoURL
-//             });
-//         }
-//     }
+    const mouseEnterHandler = (e) => {
+        setHoverObject({
+            isHover: true,
+            leftOffset: e.target.offsetLeft + 240,
+            topOffset: e.target.offsetTop
+        });
+    }
 
-//     return <button className="auth-button" onClick={googleSignIn}>
-//         Sign In
-//     </button>
-// }
+    const mouseLeaveHandler = (e) => {
+        setHoverObject({ isHover: false });
+    }  
 
-// function SignOut() {
-//     return auth.currentUser && (
-//         <button className="auth-button" onClick={() => auth.signOut()}>
-//             Sign out
-//         </button>
-//     )
-// }
+    return <>
+        {hoverObject.isHover && 
+        <div className="solve-info-card" style={{ left: hoverObject.leftOffset, top: hoverObject.topOffset}}>
+            {solve.scramble}
+        </div>}
+        <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+            <span>{ index }</span>
+            <span>{ (solve.time / 1000).toFixed(3) }</span>
+            <span>{ (solve.time / 1000).toFixed(3) }</span>
+            <span>{ (solve.time / 1000).toFixed(3) }</span>
+        </li>
+    </>
+}

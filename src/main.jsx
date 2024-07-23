@@ -4,14 +4,12 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App.jsx'
 import Header from './Header.jsx'
-import ScrollButton from './components/global/ScrollButton.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode> 
     <BrowserRouter>
       <Header />
       <App />
-      <ScrollButton />
     </BrowserRouter>
   // </React.StrictMode>,
 )
