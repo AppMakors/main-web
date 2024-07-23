@@ -106,9 +106,7 @@ function Scramble({ signal }) {
                 {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
             </select>
 
-            <button onClick={() => {}}>left</button>
-
-            <button onClick={() => {setRenewSignal(!renewSignal);}}>right</button>
+            <button onClick={() => {setRenewSignal(!renewSignal);}}>»</button>
         </div>
         <div className="scramble">{scramble}</div>
         <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
@@ -242,6 +240,29 @@ function Timer({ setSolves, setSignal }) {
     );
 }
 
+function SolveList({ solves }) {
+    const n = solves.length;
+    return <ul className="solve-list">        
+        <div className="solve-list-header">
+            <span>#</span>    
+            <span>time</span>    
+            <span>ao5</span>    
+            <span>ao12</span>
+        </div>
+        <table>
+
+        </table>
+        {solves.map((solve, index) => {
+            return <li className="solve" key={`solve${index}`} onMouseEnter={() => {}} onMouseLeave={() => {}}>
+                <span>{ n - index - 1 }</span>
+                <span>{ (solve.time / 1000).toFixed(3) }</span>
+                <span>{ (solve.time / 1000).toFixed(3) }</span>
+                <span>{ (solve.time / 1000).toFixed(3) }</span>
+            </li>
+        })}
+    </ul>
+}
+
 // function SignIn() {
 //     const googleSignIn = async () => {
 //         const provider = new firebase.auth.GoogleAuthProvider(); 
@@ -272,15 +293,3 @@ function Timer({ setSolves, setSignal }) {
 //         </button>
 //     )
 // }
-
-function SolveList({ solves }) {
-    const n = solves.length;
-    return <ul className="solve-list">
-        {solves.map((solve, index) => {
-            return <li className="solve" key={`solve${index}`}>
-                <span>{n - index - 1}</span>
-                <span>{ (solve.time / 1000).toFixed(3) }</span>
-            </li>
-        })}
-    </ul>
-}

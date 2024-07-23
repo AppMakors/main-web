@@ -18,7 +18,7 @@
     position: relative;
     margin-top: 10px;
 
-    font-size: 3em;
+    font-size: 2em;
     text-align: center;
 }
 
@@ -93,13 +93,23 @@
     color: white;
     font-family: "Source sans 3";
     font-weight: 500;
-    font-size: 1.5em;
+    font-size: 1em;
 
     margin: 10px auto;
-    padding: 10px 30px;
+    padding: 10px 20px;
+
+    overflow-y: scroll;
+    height: calc(100vh - 120px);
 }
 
-.solve {
+.solve, .solve-list-header {
     display: flex;
     justify-content: space-between;
 }
+
+.solve-list li {
+    background-color: rgb(45, 45, 45);
+    margin: 5px 0;
+    padding: 0 10px;
+}
+

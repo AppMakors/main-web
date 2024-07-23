@@ -77,16 +77,13 @@ function myRandom(min, max) {
 }
 
 // Fisher–Yates Shuffle Algorithm: https://bost.ocks.org/mike/shuffle/
-function shuffle(array) {
-    var m = array.length, t, i;
+function shuffle(a) {
+    var m = a.length, i;
 
     while (m) {
         i = Math.floor(Math.random() * m--);
-
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
+        [a[m], a[i]] = [a[i], a[m]]; 
     }
 
-    return array;
+    return a;
 }
