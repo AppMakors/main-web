@@ -7,7 +7,7 @@
 }
 
 .rubiks-main * {
-    scrollbar-width: none;
+    scrollbar-width: 10px;
 }
 
 .left-panel {
@@ -100,10 +100,24 @@
     font-size: 1em;
 
     margin: 10px auto;
-    padding: 10px 20px;
+    padding: 0 20px 0 10px;
 
     overflow-y: scroll;
     height: calc(100vh - 120px);
+
+    direction: rtl;
+}
+
+.solve-list * {
+    direction: ltr;
+}
+
+.solve-list-header {
+    top: 0;
+    position: sticky;
+    margin: 0 0 5px 0;
+    padding: 0 10px;
+    background-color: black;
 }
 
 .solve, .solve-list-header {
@@ -117,6 +131,13 @@
     background-color: rgb(45, 45, 45);
     margin: 5px 0;
     padding: 0 10px;
+
+    transition: .2s;
+}
+
+.solve-list li:hover {
+    background-color: lightgray;
+    color: black;
 }
 
 .solve-list li span {
@@ -128,6 +149,20 @@
     background-color: black;
     color: white;
 
+    margin: 0;
+    padding: 3px;
+
+    transform: translateY(-25%);
+
     width: fit-content;
     z-index: 100;
+
+    border: 1px lightgray solid;
+    border-radius: 5px;
+
+}
+
+.solve-info-card p {
+    margin: 0;
+    padding: 0;
 }

@@ -2,6 +2,26 @@ import "../assets/style.css";
 import "../styles/RubiksTimor.css";
 import {useState, useEffect} from 'react';
 
+const wca_events = [
+    ["3x3x3", "333", 0],
+    ["2x2x2", "222so", 0],
+    ["4x4x4", "444wca", 0],
+    ["5x5x5", "555wca", 60],
+    ["6x6x6", "666wca", 80],
+    ["7x7x7", "777wca", 100],
+    ["3x3 bld", "333ni", 0],
+    ["3x3 fm", "333fm", 0],
+    ["3x3 oh", "333", 0],
+    ["clock", "clkwca", 0],
+    ["megaminx", "mgmp", 70],
+    ["pyraminx", "pyrso", 10],
+    ["skewb", "skbso", 0],
+    ["sq1", "sqrs", 0],
+    ["4x4 bld", "444bld", 40],
+    ["5x5 bld", "555bld", 60],
+    ["3x3 mbld", "r3ni", 5]
+];
+
 export default function RubiksTimor() {
     const [solves, setSolves] = useState([]);
     
@@ -18,26 +38,6 @@ function Scramble({ solveTime, setScrambleAndType }) {
     const cstimerWorker=(function(){var worker=new Worker('/main-web/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
     function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
     return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
-    
-    const wca_events = [
-        ["3x3x3", "333", 0],
-        ["2x2x2", "222so", 0],
-        ["4x4x4", "444wca", 0],
-        ["5x5x5", "555wca", 60],
-        ["6x6x6", "666wca", 80],
-        ["7x7x7", "777wca", 100],
-        ["3x3 bld", "333ni", 0],
-        ["3x3 fm", "333fm", 0],
-        ["3x3 oh", "333", 0],
-        ["clock", "clkwca", 0],
-        ["megaminx", "mgmp", 70],
-        ["pyraminx", "pyrso", 10],
-        ["skewb", "skbso", 0],
-        ["sq1", "sqrs", 0],
-        ["4x4 bld", "444bld", 40],
-        ["5x5 bld", "555bld", 60],
-        ["3x3 mbld", "r3ni", 5]
-    ];
     
     const [type, setType] = useState(0);
     const [scramble, setScramble] = useState("");
@@ -237,7 +237,7 @@ function SolveList({ solves }) {
             <span>ao5</span>    
             <span>ao12</span>
         </div>
-        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solve={solves[n - index - 1]} />)}
+        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solve={solves[n - index - 1]} />) }
     </ul>
 }
 
@@ -247,8 +247,8 @@ function SolveItem({ index, solve }) {
     const mouseEnterHandler = (e) => {
         setHoverObject({
             isHover: true,
-            leftOffset: e.target.offsetLeft + 240,
-            topOffset: e.target.offsetTop
+            leftOffset: e.target.offsetLeft + e.target.offsetWidth + 10,
+            topOffset: e.target.offsetTop - e.target.parentNode.scrollTop
         });
     }
 
@@ -258,8 +258,9 @@ function SolveItem({ index, solve }) {
 
     return <>
         {hoverObject.isHover && 
-        <div className="solve-info-card" style={{ left: hoverObject.leftOffset, top: hoverObject.topOffset}}>
-            {solve.scramble}
+        <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
+            <p>{wca_events[solve.type][0]}</p>
+            <p>{solve.scramble}</p>
         </div>}
         <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             <span>{ index }</span>
