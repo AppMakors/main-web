@@ -2,6 +2,8 @@
     height: calc(100vh - 72px);
     width: fit-content;
     margin: auto;
+
+    animation: fade-in .3s ease forwards;
 }
 
 .japanese-main p {
@@ -74,18 +76,20 @@
 .alphabet-dialog {
     height: 75%;
     width: 75%;
-
+    
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-
+    
     background-color: darkgrey;
     box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
     border-radius: 15px;
-
+    
     overflow-y: scroll;
     scrollbar-width: none;
+
+    animation: fade-in .3s ease forwards;
 }
 
 .alphabet-row {
@@ -104,7 +108,7 @@
     border-radius: 10px;
     background-color: white;
 
-    transition: transform .2s;
+    transition: all .2s;
 }
 
 .alphabet-image:hover {
@@ -115,4 +119,22 @@
 .alphabet-select {
     position: relative;
     border-radius: 5px;
+}
+
+.close-icon {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+    position: sticky;
+    left: 100%;
+    top: 15px;
+    transform: translateX(calc(-100% + 25px));
+
+    transition: .2s;
+}
+
+.close-icon:hover {
+    box-shadow: white 0px 0px 20px;
 }

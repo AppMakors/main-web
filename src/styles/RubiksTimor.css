@@ -4,6 +4,8 @@
 
     min-height: calc(100vh - 72px);
     overflow: hidden;
+
+    animation: fade-in .3s ease forwards;
 }
 
 .rubiks-main * {

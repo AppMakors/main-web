@@ -5,6 +5,8 @@
     margin: auto;
     color: white;
     font-size: 20px;
+
+    animation: fade-in .3s ease forwards;
 }
 
 .blog-content a {

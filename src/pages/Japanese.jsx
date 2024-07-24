@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/Japanese.css"
 import CubeLoader from "../components/global/CubeLoader.jsx"
+import CloseIcon from "../assets/svg/icon_close.svg"
 
 export default function Japanese() {
     const [letters, setLetters] = useState([]);
@@ -92,13 +93,29 @@ function Question({ letters }) {
     </div>
 }
 
+
 function Alphabet({ letters, type }) {
     const [isOpened, setOpen] = useState(false);
 
+    useEffect(() => {
+        const keyupHandler = (event) => {
+            if (event.key === "Escape") {
+                console.log(event.key);
+                setOpen(!isOpened);
+            }
+        };
+      
+        isOpened && document.addEventListener("keyup", keyupHandler, true);
+
+        return () => document.removeEventListener("keyup", keyupHandler, true);
+      }, [isOpened]);
+
     return <>
-        <button className="alphabet-button" onClick={() => setOpen(!isOpened)}>{isOpened ? "Close" : "Show alphabet"}</button>
+        {!isOpened && <button className="alphabet-button" onClick={() => setOpen(!isOpened)}>Show alphabet</button>}
 
         {isOpened && <div className="alphabet-dialog">
+            <img className="close-icon" src={CloseIcon} onClick={() => setOpen(!isOpened)}/>
+
             <AlphabetRows letters={letters} type={type}/>
         </div>}
     </>
