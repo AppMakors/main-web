@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import "../styles/Hiragana.css"
+import "../styles/Japanese.css"
 import CubeLoader from "../components/global/CubeLoader.jsx"
 
-export default function Hiragana() {
-    const NUMBER_OF_CHOICES = 5;
-
+export default function Japanese() {
     const [letters, setLetters] = useState([]);
-    const [signal, setSignal] = useState(false);
+    const [type, setType] = useState("hiragana");
 
     useEffect(() => {
         async function getLetters() {
-            const response = await fetch(`${location.origin}/main-web/linguistics/hiragana/alphabet_full.json`);
+            const response = await fetch(`${location.origin}/main-web/linguistics/japanese/${type}_learnt.json`);
             const responseList = await response.json();
 
             // await new Promise(resolve => setTimeout(resolve, 2000));
@@ -19,10 +17,29 @@ export default function Hiragana() {
         }
 
         getLetters();
-    }, [])
+    }, [type])
 
     if (!letters.length)
         return <CubeLoader />;
+
+    return (
+        <div className="japanese-main">
+            <select className="alphabet-type" onChange={ (e) => setType(e.target.value) }>
+                <option value={"hiragana"}>Hiragana</option>
+                <option value={"katakana"}>Katakana</option>
+            </select>
+
+            <Question letters={letters}/>
+
+            <Alphabet letters={letters} type={type}/>
+        </div>
+    )
+}
+
+function Question({ letters }) {
+    const NUMBER_OF_CHOICES = 5;
+
+    const [signal, setSignal] = useState(false);
 
     const letterIdx = myRandom(0, letters.length - 1);
     const isRomanji = myRandom(0, 1);
@@ -59,34 +76,30 @@ export default function Hiragana() {
         }
     };
 
-    return (
-        <div className="hiragana-main">
-            <p>{letter}</p>
+    return <div className="question-container">
+        <p>{letter}</p>
 
-            <div className="choice-row">
-                {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
-            </div>
-
-            <Alphabet letters={letters}/>
+        <div className="choice-row">
+            {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
         </div>
-    )
+    </div>
 }
 
-function Alphabet({ letters }) {
+function Alphabet({ letters, type }) {
     const [isOpened, setOpen] = useState(false);
 
     return <>
         <button className="alphabet-button" onClick={() => setOpen(!isOpened)}>{isOpened ? "Close" : "Show alphabet"}</button>
 
         {isOpened && <div className="alphabet-dialog">
-            <AlphabetRows letters={letters}/>
+            <AlphabetRows letters={letters} type={type}/>
         </div>}
     </>
 }
 
-function AlphabetRows({ letters }) {
+function AlphabetRows({ letters, type }) {
     var i = 0;
-    var divs = [];
+    var rows = [];
 
     while (i < letters.length) {
         var romanjiArr = [];
@@ -99,12 +112,14 @@ function AlphabetRows({ letters }) {
             i += 5;
         }
 
-        divs.push(<div className="alphabet-row">
-            {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/hira/${v}.png`}/>)}
-        </div>);
+        rows.push(
+            <div className="alphabet-row" key={new Date().getTime() + i}>
+                {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/${type === "hiragana" ? "hira" : "kana"}/${v}.png`}/>)}
+            </div>
+        );
     }
 
-    return divs;
+    return rows;
 }
 
 function myRandom(min, max) {

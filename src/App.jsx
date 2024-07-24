@@ -5,7 +5,7 @@ import RubiksTimor from "./pages/RubiksTimor"
 import Blogs from "./pages/Blogs"
 import Blog from "./pages/Blog"
 import About from "./pages/About"
-import Hiragana from "./pages/Hiragana";
+import Japanese from "./pages/Japanese";
 import "./styles/App.css"
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
     <Route path={`${baseURL}*`} element={ <Navigate to={import.meta.env.BASE_URL} /> }/>
     <Route path={`${baseURL}`} element={ <Home /> }/>
     <Route path={`${baseURL}linguistics`}element= { <Linguistics />}/>
-    <Route path={`${baseURL}linguistics/hiragana`}element= { <Hiragana />}/>
+    <Route path={`${baseURL}linguistics/japanese`}element= { <Japanese />}/>
     <Route path={`${baseURL}rubiks`}element= { <RubiksTimor />}/>
     <Route path={`${baseURL}blogs`}element= { <Blogs />}/>
     <Route path={`${baseURL}blogs/:id`}element= { <Blog />}/>

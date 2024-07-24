@@ -30,6 +30,12 @@
 
     display: flex;
     background-color: rgb(45, 45, 45);
+
+    transition: .2s;
+}
+
+.card-wrapper:hover {
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
 }
 
 .card-info {
@@ -57,6 +63,8 @@
 .card-title a {
     text-decoration: none;
     color: white;
+
+    transition: .2s;
 }
 
 .card-title a:hover {

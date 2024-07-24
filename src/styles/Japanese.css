@@ -1,12 +1,15 @@
-.hiragana-main {
+.japanese-main {
+    height: calc(100vh - 72px);
     width: fit-content;
-    text-align: center;
     margin: auto;
 }
 
-.hiragana-main p {
+.japanese-main p {
     color: white;
     font-size: 100px;
+
+    width: fit-content;
+    margin: auto;
 }
 
 .choice-row button {
@@ -36,6 +39,14 @@
 
 .right-ans {
     background-color: #66FF00;
+}
+
+.question-container {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .alphabet-button {
@@ -99,4 +110,9 @@
 .alphabet-image:hover {
     background-color: cyan;
     transform: scale(1.25);
+}
+
+.alphabet-type {
+    position: relative;
+    border-radius: 5px;
 }
