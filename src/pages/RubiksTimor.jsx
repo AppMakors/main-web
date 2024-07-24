@@ -1,6 +1,6 @@
 import "../assets/style.css";
 import "../styles/RubiksTimor.css";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 export default function RubiksTimor() {
     const [solves, setSolves] = useState([]);
@@ -27,7 +27,7 @@ export default function RubiksTimor() {
     </div>
 }
 
-function Scramble({ solveTime, setScrambleAndType }) {
+function Scramble({ solveTime, setScrambleAndType, startSignal }) {
     const cstimerWorker=(function(){var worker=new Worker('/main-web/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
     function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
     return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
@@ -36,6 +36,7 @@ function Scramble({ solveTime, setScrambleAndType }) {
     const [scramble, setScramble] = useState("");
     const [scrambleSvg, setScrambleSvg] = useState("");
     const [renewSignal, setRenewSignal] = useState(false);
+    const [isHidden, setHidden] = useState(true);
 
     const wca_events = [
         ["3x3x3", "333", 0],
@@ -78,7 +79,12 @@ function Scramble({ solveTime, setScrambleAndType }) {
         setScrambleAndScrambleSvg();
     }, [type, solveTime, renewSignal]);
 
-    return <>
+    useEffect(() => {
+        setHidden(!isHidden);
+    }, [solveTime, startSignal]);
+
+    return isHidden ? <></> :
+    <>
         <div className="scramble-settings">
             <select onChange={(e) => {setType(e.target.value)}}>
                 {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
@@ -91,7 +97,7 @@ function Scramble({ solveTime, setScrambleAndType }) {
     </>
 }
 
-function Timer({ setSolveTime }) {
+function Timer({ setSolveTime, setStartSignal }) {
     useEffect(() => {
         document.addEventListener("keydown", (e) => { 
             if (e.repeat)
@@ -152,6 +158,8 @@ function Timer({ setSolveTime }) {
 
         setHoldingTime(0);
         setHoldingPoint(0);
+
+        setStartSignal((oldSignal) => !oldSignal);
     }
 
     const stopTimingHandler = () => {
@@ -214,6 +222,7 @@ function Timer({ setSolveTime }) {
 function TimeContainer({ setSolves }) {
     const [scrambleAndType, setScrambleAndType] = useState({});
     const [solveTime, setSolveTime] = useState(-1);
+    const [startSignal, setStartSignal] = useState(false);
 
     useEffect(() => {
         if (solveTime !== -1) {
@@ -228,10 +237,10 @@ function TimeContainer({ setSolves }) {
     }, [solveTime]);
 
     return <div className="time-container">
-        <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType}/>
+        <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType} startSignal={startSignal}/>
 
         <div className="timer-wrapper">
-            <Timer setSolveTime={setSolveTime}/>
+            <Timer setSolveTime={setSolveTime} setStartSignal={setStartSignal}/>
             <div className="ao5">
                 ao5
             </div>

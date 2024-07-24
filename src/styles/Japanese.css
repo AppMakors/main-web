@@ -3,7 +3,7 @@
     width: fit-content;
     margin: auto;
 
-    animation: fade-in .3s ease forwards;
+    animation: fade-in .4s ease forwards;
 }
 
 .japanese-main p {
@@ -71,6 +71,7 @@
 
 .alphabet-button:hover {
     background-color: white;
+    cursor: pointer;
 }
 
 .alphabet-dialog {
@@ -89,7 +90,7 @@
     overflow-y: scroll;
     scrollbar-width: none;
 
-    animation: fade-in .3s ease forwards;
+    animation: fade-in .4s ease forwards;
 }
 
 .alphabet-row {
