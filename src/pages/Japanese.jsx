@@ -4,11 +4,11 @@ import CubeLoader from "../components/global/CubeLoader.jsx"
 
 export default function Japanese() {
     const [letters, setLetters] = useState([]);
-    const [type, setType] = useState("hiragana");
+    const [type, setType] = useState([ "hira", "learnt" ]);
 
     useEffect(() => {
         async function getLetters() {
-            const response = await fetch(`${location.origin}/main-web/linguistics/japanese/${type}_learnt.json`);
+            const response = await fetch(`${location.origin}/main-web/linguistics/japanese/${type[0]}_${type[1]}.json`);
             const responseList = await response.json();
 
             // await new Promise(resolve => setTimeout(resolve, 2000));
@@ -19,19 +19,26 @@ export default function Japanese() {
         getLetters();
     }, [type])
 
-    if (!letters.length)
-        return <CubeLoader />;
-
     return (
         <div className="japanese-main">
-            <select className="alphabet-type" onChange={ (e) => setType(e.target.value) }>
-                <option value={"hiragana"}>Hiragana</option>
-                <option value={"katakana"}>Katakana</option>
+            <select className="alphabet-select" onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
+                <option value={"hira"}>Hiragana</option>
+                <option value={"kana"}>Katakana</option>
             </select>
 
-            <Question letters={letters}/>
-
-            <Alphabet letters={letters} type={type}/>
+            <select className="alphabet-select" onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
+                <option value={"learnt"}>Learnt</option>
+                <option value={"full"}>Full</option>
+            </select>
+            
+            {
+                letters.length
+                ? <>
+                    <Question letters={letters}/>
+                    <Alphabet letters={letters} type={type}/>
+                </>
+                : <CubeLoader />
+            }
         </div>
     )
 }
@@ -114,7 +121,7 @@ function AlphabetRows({ letters, type }) {
 
         rows.push(
             <div className="alphabet-row" key={new Date().getTime() + i}>
-                {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/${type === "hiragana" ? "hira" : "kana"}/${v}.png`}/>)}
+                {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/${type[0]}/${v}.png`}/>)}
             </div>
         );
     }
