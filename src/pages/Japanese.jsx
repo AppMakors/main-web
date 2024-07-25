@@ -9,7 +9,7 @@ export default function Japanese() {
 
     useEffect(() => {
         async function getLetters() {
-            const response = await fetch(`${location.origin}/main-web/linguistics/japanese/${type[0]}_${type[1]}.json`);
+            const response = await fetch(`${location.origin}/main-web/miniapps/japanese/${type[0]}_${type[1]}.json`);
             const responseList = await response.json();
 
             // await new Promise(resolve => setTimeout(resolve, 2000));

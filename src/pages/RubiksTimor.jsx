@@ -1,6 +1,6 @@
 import "../assets/style.css";
 import "../styles/RubiksTimor.css";
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 
 export default function RubiksTimor() {
     const [solves, setSolves] = useState([]);

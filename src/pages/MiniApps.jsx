@@ -36,7 +36,7 @@ export default function Linguistics() {
 
     useEffect(() => {
 		async function getBlogs() {
-			const response = await fetch(`${location.origin}/main-web/linguistics/linguistics_list.json`);
+			const response = await fetch(`${location.origin}/main-web/miniapps/miniapp_list.json`);
 			const list = await response.json();
 
 			setBlogs(list);
@@ -47,8 +47,8 @@ export default function Linguistics() {
 	
 	return (
 		<div className="blogs-main">
-			<h1 className="blogs-title">Linguistics Applications</h1>
-			<h2 className="blogs-introduction">A place where you can find useful applications for linguistics</h2>
+			<h1 className="blogs-title">AppMakors MiniApps</h1>
+			<h2 className="blogs-introduction">A place where you can find useful mini applications</h2>
 			<div className="blogs-container">
 				{ blogs.map((blog) => <BlogCard key={blog.id} blog={blog} />) } 
 			</div>

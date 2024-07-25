@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home"
-import Linguistics from "./pages/Linguistics"
+import MiniApps from "./pages/MiniApps"
 import RubiksTimor from "./pages/RubiksTimor"
 import Blogs from "./pages/Blogs"
 import Blog from "./pages/Blog"
@@ -12,13 +12,13 @@ export default function App() {
   const baseURL = import.meta.env.BASE_URL;
 
   return <Routes>
-    <Route path={`${baseURL}*`} element={ <Navigate to={import.meta.env.BASE_URL} /> }/>
-    <Route path={`${baseURL}`} element={ <Home /> }/>
-    <Route path={`${baseURL}linguistics`}element= { <Linguistics />}/>
-    <Route path={`${baseURL}linguistics/japanese`}element= { <Japanese />}/>
-    <Route path={`${baseURL}rubiks`}element= { <RubiksTimor />}/>
-    <Route path={`${baseURL}blogs`}element= { <Blogs />}/>
-    <Route path={`${baseURL}blogs/:id`}element= { <Blog />}/>
-    <Route path={`${baseURL}about`}element= { <About />}/>
+    <Route path={`${baseURL}*`} element={<Navigate to={baseURL} />} />
+    <Route path={`${baseURL}`} element={<Home />} />
+    <Route path={`${baseURL}miniapps`} element={<MiniApps />} />
+    <Route path={`${baseURL}miniapps/japanese`} element={<Japanese />} />
+    <Route path={`${baseURL}rubiks`} element={<RubiksTimor />} />
+    <Route path={`${baseURL}blogs`} element={<Blogs />} />
+    <Route path={`${baseURL}blogs/:id`} element={<Blog />} />
+    <Route path={`${baseURL}about`} element={<About />} />
   </Routes>
 }
