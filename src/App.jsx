@@ -6,7 +6,6 @@ import Blogs from "./pages/Blogs"
 import Blog from "./pages/Blog"
 import About from "./pages/About"
 import Japanese from "./pages/Japanese";
-import ThreeJS from "./pages/ThreeJS";
 import "./styles/App.css"
 
 export default function App() {
@@ -17,7 +16,6 @@ export default function App() {
         <Route path={`${baseURL}`} element={<Home />} />
         <Route path={`${baseURL}miniapps`} element={<MiniApps />} />
         <Route path={`${baseURL}miniapps/japanese`} element={<Japanese />} />
-        <Route path={`${baseURL}miniapps/threejs`} element={<ThreeJS />} />
         <Route path={`${baseURL}rubiks`} element={<RubiksTimor />} />
         <Route path={`${baseURL}blogs`} element={<Blogs />} />
         <Route path={`${baseURL}blogs/:id`} element={<Blog />} />
