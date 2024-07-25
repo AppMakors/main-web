@@ -103,10 +103,10 @@ function Alphabet({ letters, type }) {
     useOutsideClick(alphabetDialogRef, () => setOpen(false))
 
     return <>
-        {!isOpened && <button className="alphabet-button" onClick={() => setOpen(!isOpened)}>Show alphabet</button>}
+        {!isOpened && <button className="alphabet-button" onClick={() => setOpen(true)}>Show alphabet</button>}
 
         {isOpened && <div className="alphabet-dialog">
-            <img className="close-icon" src={CloseIcon} ref={alphabetDialogRef} onClick={() => setOpen(!isOpened)}/>
+            <img className="close-icon" src={CloseIcon} ref={alphabetDialogRef} onClick={() => setOpen(true)}/>
 
             <AlphabetRows letters={letters} type={type}/>
         </div>}
