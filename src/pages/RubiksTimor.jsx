@@ -260,8 +260,8 @@ function SolveList({ solves, setAo }) {
 
     useEffect(() => {
         n && setAo({
-            ao5: n > 4 ? ao(5, solves.slice(-5, n)).toFixed(3) : "___",
-            ao12: n > 11 ? ao(12, solves.slice(-12, n)).toFixed(3) : "___"
+            ao5: n > 4 ? ao(solves.slice(-5, n)).toFixed(3) : "___",
+            ao12: n > 11 ? ao(solves.slice(-12, n)).toFixed(3) : "___"
         });
     }, [n]);
         
@@ -301,13 +301,14 @@ function SolveItem({ index, solves }) {
         <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             <span>{ index }</span>
             <span>{ (solves[index].time / 1000).toFixed(3) }</span>
-            <span>{ (index > 3) ? (ao(5, solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
-            <span>{ (index > 10) ? (ao(12, solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
+            <span>{ (index > 3) ? (ao(solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
+            <span>{ (index > 10) ? (ao(solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
         </li>
     </>
 }
 
-const ao = (n, a) => {
+const ao = (a) => {
+    const n = a.length;
     let sum = 0;
     let min = Number.MAX_SAFE_INTEGER;
     let max = Number.MIN_SAFE_INTEGER;
@@ -316,5 +317,5 @@ const ao = (n, a) => {
         max = Math.max(a[i].time, max);
         sum += a[i].time;
     }
-    return (sum - min - max) / n / 1000;
+    return (sum - min - max) / (n - 2) / 1000;
 }
