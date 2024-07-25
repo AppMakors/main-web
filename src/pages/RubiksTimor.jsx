@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 
 export default function RubiksTimor() {
     const [solves, setSolves] = useState([]);
+    const [ao, setAo] = useState({});
 
     useEffect(() => {
         const localSolvesString = localStorage.getItem("session1");
@@ -20,14 +21,14 @@ export default function RubiksTimor() {
     
     return <div className="rubiks-main">
         <div className="left-panel">
-            <SolveList solves={solves} />
+            <SolveList solves={solves} setAo={setAo}/>
         </div>
 
-        <TimeContainer setSolves={setSolves}/>
+        <TimeContainer setSolves={setSolves} ao={ao}/>
     </div>
 }
 
-function Scramble({ solveTime, setScrambleAndType, startSignal }) {
+function Scramble({ solveTime, setScrambleAndType, isHidden }) {
     const cstimerWorker=(function(){var worker=new Worker('/main-web/cstimer_module.js');var callbacks={};var msgid=0;worker.onmessage=function(e){var data=e.data;var callback=callbacks[data[0]];delete callbacks[data[0]];callback&&callback(data[2])}
     function callWorkerAsync(type,details){return new Promise(function(type,details,resolve){++msgid;callbacks[msgid]=resolve;worker.postMessage([msgid,type,details])}.bind(null,type,details))}
     return{getScrambleTypes:function(){return callWorkerAsync('scrtype')},getScramble:function(){return callWorkerAsync('scramble',Array.prototype.slice.apply(arguments))},setSeed:function(seed){return callWorkerAsync('seed',[seed])},setGlobal:function(key,value){return callWorkerAsync('set',[key,value])},getImage:function(scramble,type){return callWorkerAsync('image',[scramble,type])}}})()
@@ -36,7 +37,6 @@ function Scramble({ solveTime, setScrambleAndType, startSignal }) {
     const [scramble, setScramble] = useState("");
     const [scrambleSvg, setScrambleSvg] = useState("");
     const [renewSignal, setRenewSignal] = useState(false);
-    const [isHidden, setHidden] = useState(true);
 
     const wca_events = [
         ["3x3x3", "333", 0],
@@ -79,12 +79,7 @@ function Scramble({ solveTime, setScrambleAndType, startSignal }) {
         setScrambleAndScrambleSvg();
     }, [type, solveTime, renewSignal]);
 
-    useEffect(() => {
-        setHidden(!isHidden);
-    }, [solveTime, startSignal]);
-
-    return isHidden ? <></> :
-    <>
+    return <div style={ { display: isHidden ? "none" : "block" }}>
         <div className="scramble-settings">
             <select onChange={(e) => {setType(e.target.value)}}>
                 {wca_events.map((v, i) => <option key={`type${i}`} value={i}>{v[0]}</option>)}
@@ -94,7 +89,7 @@ function Scramble({ solveTime, setScrambleAndType, startSignal }) {
         </div>
         <div className="scramble">{scramble}</div>
         <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
-    </>
+    </div>
 }
 
 function Timer({ setSolveTime, setStartSignal }) {
@@ -114,7 +109,7 @@ function Timer({ setSolveTime, setStartSignal }) {
         return () => {
             document.removeEventListener("keydown", null);
             document.removeEventListener("keyup", null);
-        }
+        };
     }, []);
 
     const ACTIVATION_KEY = "Space";
@@ -219,10 +214,11 @@ function Timer({ setSolveTime, setStartSignal }) {
     );
 }
 
-function TimeContainer({ setSolves }) {
+function TimeContainer({ setSolves, ao }) {
     const [scrambleAndType, setScrambleAndType] = useState({});
     const [solveTime, setSolveTime] = useState(-1);
     const [startSignal, setStartSignal] = useState(false);
+    const [isHidden, setHidden] = useState(true);
 
     useEffect(() => {
         if (solveTime !== -1) {
@@ -236,23 +232,39 @@ function TimeContainer({ setSolves }) {
         }
     }, [solveTime]);
 
+    useEffect(() => {
+        setHidden(!isHidden);
+    }, [solveTime, startSignal]);
+
     return <div className="time-container">
-        <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType} startSignal={startSignal}/>
+        <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType} isHidden={isHidden}/>
 
         <div className="timer-wrapper">
             <Timer setSolveTime={setSolveTime} setStartSignal={setStartSignal}/>
-            <div className="ao5">
-                ao5
-            </div>
-            <div className="ao12">
-                ao12
-            </div>
+            {   
+                !isHidden && <>
+                    <div className="ao5">
+                    ao5: {ao.ao5}
+                    </div>
+                    <div className="ao12">
+                        ao12: {ao.ao12}
+                    </div>
+                </>
+            }
         </div>
     </div>
 }
 
-function SolveList({ solves }) {
+function SolveList({ solves, setAo }) {
     const n = solves.length;
+
+    useEffect(() => {
+        n && setAo({
+            ao5: n > 4 ? ao(5, solves.slice(-5, n)).toFixed(3) : "___",
+            ao12: n > 11 ? ao(12, solves.slice(-12, n)).toFixed(3) : "___"
+        });
+    }, [n]);
+        
     return <ul className="solve-list">        
         <div className="solve-list-header">
             <span>#</span>    
@@ -260,11 +272,12 @@ function SolveList({ solves }) {
             <span>ao5</span>    
             <span>ao12</span>
         </div>
-        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solve={solves[n - index - 1]} />) }
+        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solves={solves}/>) }
     </ul>
 }
 
-function SolveItem({ index, solve }) {
+function SolveItem({ index, solves }) {
+    const n = solves.length;
     const [hoverObject, setHoverObject] = useState({ isHover: false });
 
     const mouseEnterHandler = (e) => {
@@ -282,14 +295,26 @@ function SolveItem({ index, solve }) {
     return <>
         {hoverObject.isHover && 
         <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
-            <p>{solve.type}</p>
-            <p>{solve.scramble}</p>
+            <p>{solves[index].type}</p>
+            <p>{solves[index].scramble}</p>
         </div>}
         <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             <span>{ index }</span>
-            <span>{ (solve.time / 1000).toFixed(3) }</span>
-            <span>{ (solve.time / 1000).toFixed(3) }</span>
-            <span>{ (solve.time / 1000).toFixed(3) }</span>
+            <span>{ (solves[index].time / 1000).toFixed(3) }</span>
+            <span>{ (index > 3) ? (ao(5, solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
+            <span>{ (index > 10) ? (ao(12, solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
         </li>
     </>
+}
+
+const ao = (n, a) => {
+    let sum = 0;
+    let min = Number.MAX_SAFE_INTEGER;
+    let max = Number.MIN_SAFE_INTEGER;
+    for (let i = 0; i < n; i++) {
+        min = Math.min(a[i].time, min);
+        max = Math.max(a[i].time, max);
+        sum += a[i].time;
+    }
+    return (sum - min - max) / n / 1000;
 }
