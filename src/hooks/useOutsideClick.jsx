@@ -1,9 +1,17 @@
 import { useEffect } from "react";
 
-export default function useOutsideClick(ref, action) {
+/**
+ * A manually defined hook to listen to changes outside a list of references
+ * @param {*} listOfRefs a list of references that you want to listen to the click event outside of them
+ * @param {*} action a function to be called when the event occurs
+ */
+export default function useOutsideClick(listOfRefs, action) {
     useEffect(() => {
         function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
+            var isOutsideClick = true;
+            listOfRefs.forEach((v) => {isOutsideClick &&= v.current && !v.current.contains(event.target)});
+
+            if (isOutsideClick) {
                 action();
             }
         }
@@ -12,5 +20,5 @@ export default function useOutsideClick(ref, action) {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [ref]);
+    }, [listOfRefs]);
 }

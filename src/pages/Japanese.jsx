@@ -8,6 +8,7 @@ import useKeyEvent from "../hooks/useKeyEvent.jsx";
 export default function Japanese() {
     const [letters, setLetters] = useState([]);
     const [type, setType] = useState([ "hira", "learnt" ]);
+    const selectRefs = [useRef(null), useRef(null)];
 
     useEffect(() => {
         async function getLetters() {
@@ -24,12 +25,12 @@ export default function Japanese() {
 
     return (
         <div className="japanese-main">
-            <select className="alphabet-select" onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
+            <select className="alphabet-select" ref={selectRefs[0]} onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
                 <option value={"hira"}>Hiragana</option>
                 <option value={"kana"}>Katakana</option>
             </select>
 
-            <select className="alphabet-select" onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
+            <select className="alphabet-select" ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
                 <option value={"learnt"}>Learnt</option>
                 <option value={"full"}>Full</option>
             </select>
@@ -38,7 +39,7 @@ export default function Japanese() {
                 letters.length
                 ? <>
                     <Question letters={letters}/>
-                    <Alphabet letters={letters} type={type}/>
+                    <Alphabet letters={letters} type={type} selectRefs={selectRefs}/>
                 </>
                 : <CubeLoader />
             }
@@ -95,18 +96,18 @@ function Question({ letters }) {
     </div>
 }
 
-function Alphabet({ letters, type }) {
+function Alphabet({ letters, type, selectRefs }) {
     const [isOpened, setOpen] = useState(false);
     const alphabetDialogRef = useRef(null);
 
     useKeyEvent(alphabetDialogRef, "keyup", "Escape", () => setOpen(false));
-    useOutsideClick(alphabetDialogRef, () => setOpen(false))
+    useOutsideClick([alphabetDialogRef, ...selectRefs], () => setOpen(false));
 
     return <>
         {!isOpened && <button className="alphabet-button" onClick={() => setOpen(true)}>Show alphabet</button>}
 
-        {isOpened && <div className="alphabet-dialog">
-            <img className="close-icon" src={CloseIcon} ref={alphabetDialogRef} onClick={() => setOpen(true)}/>
+        {isOpened && <div className="alphabet-dialog" ref={alphabetDialogRef}>
+            <img className="close-icon" src={CloseIcon} onClick={() => setOpen(false)}/>
 
             <AlphabetRows letters={letters} type={type}/>
         </div>}

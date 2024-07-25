@@ -1,5 +1,13 @@
 import { useEffect } from "react";
 
+/**
+ * A manually defined hook to listen to key event
+ * @param {*} ref a reference to html component
+ * @param {*} eventType event type of event listener
+ * @param {*} keyCode key's code
+ * @param {*} action a function to be called when the event occurs
+ * @param {*} preventRepeat prevent key from repeating, [false] if it's not passed to the function
+ */
 export default function useKeyEvent(ref, eventType, keyCode, action, preventRepeat = false) {
     useEffect(() => {
         const keyEventFilter = (e) => {
