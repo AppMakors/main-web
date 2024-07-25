@@ -6,13 +6,5 @@
         "imgSource": "https://upload.wikimedia.org/wikipedia/commons/6/67/Japanese_Hiragana_kyokashotai_A.svg",
         "authorLink": "https://github.com/votranphi",
         "publishDate": "21/07/2024"
-    },
-    {
-        "id": "threejs",
-        "title": "React ThreeJS Example",
-        "introduction": "An example of React ThreeJS framework",
-        "imgSource": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Three.js_Icon.svg",
-        "authorLink": "https://codesandbox.io/u/drcmda",
-        "publishDate": "25/07/2024"
     }
 ]
