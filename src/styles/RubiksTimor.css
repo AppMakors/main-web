@@ -99,7 +99,6 @@
     color: white;
     font-family: "Source sans 3";
     font-weight: 500;
-    font-size: 1em;
 
     margin: 10px auto;
     padding: 0 20px 0 10px;
@@ -120,6 +119,16 @@
     margin: 0 0 5px 0;
     padding: 0 10px;
     background-color: black;
+
+    font-size: 1em;
+}
+.solve-list-header span {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+}
+.solve-list-header span:nth-of-type(1) {
+    width: 10%;
 }
 
 .solve, .solve-list-header {
@@ -144,7 +153,18 @@
 
 .solve-list li span {
     pointer-events: none;
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+
+    font-size: 0.9em;
 }
+
+.solve-list li span:nth-of-type(1) {
+    width: 10%;
+}
+
+
 
 .solve-info-card {
     position: absolute;
