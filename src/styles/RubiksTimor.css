@@ -188,3 +188,8 @@
     margin: 0;
     padding: 0;
 }
+
+.solve-info-card div {
+    width: 50%;
+    height: 50%;
+}

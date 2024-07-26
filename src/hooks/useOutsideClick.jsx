@@ -5,7 +5,7 @@ import { useEffect } from "react";
  * @param {*} listOfRefs a list of references that you want to listen to the click event outside of them
  * @param {*} action a function to be called when the event occurs
  */
-export default function useOutsideClick(listOfRefs, action) {
+export function useOutsideClick(listOfRefs, action) {
     useEffect(() => {
         function handleClickOutside(event) {
             var isOutsideClick = true;

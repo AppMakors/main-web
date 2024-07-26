@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import "../styles/Japanese.css"
 import CubeLoader from "../components/global/CubeLoader.jsx"
 import CloseIcon from "../assets/svg/icon_close.svg"
-import useOutsideClick from "../hooks/useOutsideClick.jsx";
-import useKeyEvent from "../hooks/useKeyEvent.jsx";
+import {useKeyEvent, useOutsideClick} from "../hooks";
+import { myRandom, shuffle } from "../functions/japanese.jsx";
 
 export default function Japanese() {
     const [letters, setLetters] = useState([]);
@@ -137,20 +137,4 @@ function AlphabetRows({ letters, type }) {
     }
 
     return rows;
-}
-
-function myRandom(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Fisher–Yates Shuffle Algorithm: https://bost.ocks.org/mike/shuffle/
-function shuffle(a) {
-    var m = a.length, i;
-
-    while (m) {
-        i = Math.floor(Math.random() * m--);
-        [a[m], a[i]] = [a[i], a[m]]; 
-    }
-
-    return a;
 }

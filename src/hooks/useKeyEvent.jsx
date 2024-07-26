@@ -8,7 +8,7 @@ import { useEffect } from "react";
  * @param {*} action a function to be called when the event occurs
  * @param {*} preventRepeat prevent key from repeating, [false] if it's not passed to the function
  */
-export default function useKeyEvent(ref, eventType, keyCode, action, preventRepeat = false) {
+export function useKeyEvent(ref, eventType, keyCode, action, preventRepeat = false) {
     useEffect(() => {
         const keyEventFilter = (e) => {
             if (preventRepeat && e.repeat)
