@@ -177,7 +177,7 @@
     transform: translateY(-25%);
 
     width: fit-content;
-    z-index: 100;
+    z-index: 1000;
 
     border: 1px lightgray solid;
     border-radius: 5px;
