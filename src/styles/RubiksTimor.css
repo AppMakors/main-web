@@ -182,6 +182,7 @@
     border: 1px lightgray solid;
     border-radius: 5px;
 
+    animation: fade-in .2s ease forwards;
 }
 
 .solve-info-card p {

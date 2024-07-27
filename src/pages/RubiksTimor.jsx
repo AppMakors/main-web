@@ -1,6 +1,6 @@
 import "../assets/style.css";
 import "../styles/RubiksTimor.css";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { ao, cstimerWorker, wca_events } from "../functions/rubikstimor.jsx";
 
 export default function RubiksTimor() {
@@ -227,8 +227,12 @@ function TimeContainer({ setSolves, ao }) {
     }, [solveTime]);
 
     useEffect(() => {
-        setHidden(!isHidden);
-    }, [solveTime, startSignal]);
+        setHidden(true);
+    }, [startSignal]);
+
+    useEffect(() => {
+        setHidden(false);
+    }, [solveTime]);
 
     return <div className="time-container">
         <Scramble solveTime={solveTime} setScrambleAndType={setScrambleAndType} isHidden={isHidden}/>
@@ -270,8 +274,8 @@ function SolveList({ solves, setAo }) {
     </ul>
 }
 
+var canAppendSvg = false;
 function SolveItem({ index, solves }) {
-    const n = solves.length;
     const [hoverObject, setHoverObject] = useState({ isHover: false });
     const [scrambleSvg, setScrambleSvg] = useState("");
 
@@ -295,13 +299,31 @@ function SolveItem({ index, solves }) {
         setScrambleSvgAsync();
     }, []);
 
+    useEffect(() => {
+        if (!hoverObject.isHover)
+            canAppendSvg = false;
+
+        if (canAppendSvg && scrambleSvg.length) {
+            console.log("heheh");
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = scrambleSvg;
+
+            tempDiv.firstChild.setAttribute("viewBox", `0 0 ${tempDiv.firstChild.width.animVal.value} ${tempDiv.firstChild.height.animVal.value}`);
+            tempDiv.firstChild.setAttribute("height", "100%");
+            tempDiv.firstChild.removeAttribute("width");
+
+            const targetDiv = document.getElementById(`item-scramble-image-${index}`);
+            targetDiv.appendChild(tempDiv.firstChild);
+        }
+    }, [hoverObject.isHover]);
+
     return <>
         {hoverObject.isHover && 
         <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
             <p>{wca_events[solves[index].type][0]}</p>
             <p>{solves[index].scramble}</p>
 
-            <div dangerouslySetInnerHTML={{ __html: scrambleSvg }}/>
+            <div id={`item-scramble-image-${index}`} style={{height: "200px"}}>{canAppendSvg = true}</div>
         </div>}
         <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             <span>{ index }</span>
