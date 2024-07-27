@@ -274,10 +274,10 @@ function SolveList({ solves, setAo }) {
     </ul>
 }
 
-var canAppendSvg = false;
 function SolveItem({ index, solves }) {
     const [hoverObject, setHoverObject] = useState({ isHover: false });
     const [scrambleSvg, setScrambleSvg] = useState("");
+    var canAppendSvg = useRef(false);
 
     const mouseEnterHandler = (e) => {
         setHoverObject({
@@ -301,9 +301,9 @@ function SolveItem({ index, solves }) {
 
     useEffect(() => {
         if (!hoverObject.isHover)
-            canAppendSvg = false;
+            canAppendSvg.current = false;
 
-        if (canAppendSvg && scrambleSvg.length) {
+        if (canAppendSvg.current && scrambleSvg.length) {
             console.log("heheh");
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = scrambleSvg;
@@ -323,7 +323,7 @@ function SolveItem({ index, solves }) {
             <p>{wca_events[solves[index].type][0]}</p>
             <p>{solves[index].scramble}</p>
 
-            <div id={`item-scramble-image-${index}`} style={{height: "200px"}}>{canAppendSvg = true}</div>
+            <div id={`item-scramble-image-${index}`}>{canAppendSvg.current = true}</div>
         </div>}
         <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
             <span>{ index }</span>
