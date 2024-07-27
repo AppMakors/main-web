@@ -76,10 +76,12 @@
     transform: translateX(-50%);
 }
 
-.scramble-image {
+#scramble-image {
     position: absolute;
     right: 0;
     bottom: 0;
+
+    height: 300px; /* actual scramble image height */
 }
 
 .auth-button {
@@ -164,8 +166,6 @@
     width: 10%;
 }
 
-
-
 .solve-info-card {
     position: absolute;
     background-color: black;
@@ -187,9 +187,4 @@
 .solve-info-card p {
     margin: 0;
     padding: 0;
-}
-
-.solve-info-card div {
-    width: 50%;
-    height: 50%;
 }

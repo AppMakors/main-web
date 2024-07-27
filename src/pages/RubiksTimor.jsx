@@ -56,6 +56,23 @@ function Scramble({ solveTime, setScrambleAndType, isHidden }) {
         setScrambleAndScrambleSvg();
     }, [type, solveTime, renewSignal]);
 
+    useEffect(() => {
+        if (scrambleSvg.length) {
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = scrambleSvg;
+
+            tempDiv.firstChild.setAttribute("viewBox", `0 0 ${tempDiv.firstChild.width.animVal.value} ${tempDiv.firstChild.height.animVal.value}`);
+            tempDiv.firstChild.setAttribute("height", "98%");
+            tempDiv.firstChild.removeAttribute("width");
+
+            const targetDiv = document.getElementById("scramble-image");
+            if (targetDiv.hasChildNodes()) {
+                targetDiv.removeChild(targetDiv.firstChild);
+            }
+            targetDiv.appendChild(tempDiv.firstChild);
+        }
+    }, [scrambleSvg]);
+
     return <div style={ { display: isHidden ? "none" : "block" }}>
         <div className="scramble-settings">
             <select onChange={(e) => {setType(e.target.value)}}>
@@ -65,7 +82,7 @@ function Scramble({ solveTime, setScrambleAndType, isHidden }) {
             <button onClick={() => {setRenewSignal(!renewSignal);}}>»</button>
         </div>
         <div className="scramble">{scramble}</div>
-        <div className="scramble-image" dangerouslySetInnerHTML={{ __html: scrambleSvg }}></div>
+        <div id="scramble-image"/>
     </div>
 }
 
