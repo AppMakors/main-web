@@ -270,14 +270,12 @@ function SolveList({ solves, setAo }) {
             <span>ao5</span>    
             <span>ao12</span>
         </div>
-        {solves.map((solve, index) => <SolveItem key={`solve${index}`} index={n - index - 1} solves={solves}/>) }
+        {solves.map((solve, index) => <SolveItem key={`solve${new Date().getTime() + index}`} solves={solves} index={n - index - 1} />) }
     </ul>
 }
 
-function SolveItem({ index, solves }) {
+function SolveItem({ solves, index }) {
     const [hoverObject, setHoverObject] = useState({ isHover: false });
-    const [scrambleSvg, setScrambleSvg] = useState("");
-    var canAppendSvg = useRef(false);
 
     const mouseEnterHandler = (e) => {
         setHoverObject({
@@ -291,6 +289,22 @@ function SolveItem({ index, solves }) {
         setHoverObject({ isHover: false });
     }
 
+    return <>
+        {
+            hoverObject.isHover && <SolveInfoCard solves={solves} index={index} hoverObject={hoverObject}/>
+        }
+        <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+            <span>{ index }</span>
+            <span>{ (solves[index].time / 1000).toFixed(3) }</span>
+            <span>{ (index > 3) ? (ao(solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
+            <span>{ (index > 10) ? (ao(solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
+        </li>
+    </>
+}
+
+function SolveInfoCard({ solves, index, hoverObject }) {
+    const [scrambleSvg, setScrambleSvg] = useState("");
+
     useEffect(() => {
         async function setScrambleSvgAsync() {
             setScrambleSvg(await cstimerWorker.getImage(solves[index].scramble, wca_events[solves[index].type][1]));
@@ -298,12 +312,9 @@ function SolveItem({ index, solves }) {
 
         setScrambleSvgAsync();
     }, []);
-
+    
     useEffect(() => {
-        if (!hoverObject.isHover)
-            canAppendSvg.current = false;
-
-        if (canAppendSvg.current && scrambleSvg.length) {
+        if (scrambleSvg.length) {
             console.log("heheh");
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = scrambleSvg;
@@ -315,21 +326,12 @@ function SolveItem({ index, solves }) {
             const targetDiv = document.getElementById(`item-scramble-image-${index}`);
             targetDiv.appendChild(tempDiv.firstChild);
         }
-    }, [hoverObject.isHover]);
+    }, [scrambleSvg]);
 
-    return <>
-        {hoverObject.isHover && 
-        <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
-            <p>{wca_events[solves[index].type][0]}</p>
-            <p>{solves[index].scramble}</p>
+    return <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
+        <p>{wca_events[solves[index].type][0]}</p>
+        <p>{solves[index].scramble}</p>
 
-            <div id={`item-scramble-image-${index}`}>{canAppendSvg.current = true}</div>
-        </div>}
-        <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
-            <span>{ index }</span>
-            <span>{ (solves[index].time / 1000).toFixed(3) }</span>
-            <span>{ (index > 3) ? (ao(solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
-            <span>{ (index > 10) ? (ao(solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
-        </li>
-    </>
+        <div id={`item-scramble-image-${index}`}></div>
+    </div>
 }

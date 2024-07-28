@@ -17,7 +17,7 @@ header {
 
     /* let header stay on top of the page */
     position: sticky;
-    z-index: 999;
+    z-index: 1;
 }
 
 .page-list {
