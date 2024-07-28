@@ -5,14 +5,13 @@ import "../styles/Blogs.css"
 function BlogCard({blog}) {
 	return (
 		<div className="card-wrapper">
-			<Link className="card-img-wrapper" to={`./${blog.id}`} onClick={() => localStorage.setItem("lang", `${blog.lang.toString()}`)}>
+			<Link className="card-img-wrapper" to={`./${blog.id}`}>
 				<img height={150} width={150} src={`${blog.imgSource}`} style={{filter: "brightness(0) saturate(100%) invert(73%) sepia(38%) saturate(6252%) hue-rotate(150deg) brightness(107%) contrast(104%)"}}/>
 			</Link>
 			<div className="card-info">
 				<div className="card-info-upper">
 					<div className="card-title">
-						<Link to={`./${blog.id}`} 
-							  onClick={() => localStorage.setItem("lang", `${blog.lang.toString()}`)}>
+						<Link to={`./${blog.id}`}>
 							{blog.title}
 						</Link>
 					</div>
@@ -31,7 +30,7 @@ function BlogCard({blog}) {
 	);
 }
 
-export default function Linguistics() {
+export default function MiniApps() {
 	const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {

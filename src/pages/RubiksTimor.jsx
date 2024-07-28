@@ -1,6 +1,6 @@
 import "../assets/style.css";
 import "../styles/RubiksTimor.css";
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import { ao, cstimerWorker, wca_events, displayTime } from "../functions/rubikstimor.jsx";
 
 export default function RubiksTimor() {
