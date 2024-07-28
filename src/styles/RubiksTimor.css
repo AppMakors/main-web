@@ -176,20 +176,37 @@
 
     transform: translateY(-25%);
 
-    width: fit-content;
+    width: 25%;
     z-index: 1000;
 
     border: 1px lightgray solid;
     border-radius: 5px;
 
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
+
     animation: fade-in .2s ease forwards;
 }
 
-.solve-info-card p {
+.solve-info-card p:nth-of-type(1) {
     margin: 0;
     padding: 0;
+
+    font-size: 25px;
+    color: yellow;
+    
+    margin: auto;
+    width: fit-content;
+}
+
+.solve-info-card p:nth-of-type(2) {
+    margin: 0;
+    padding: 5px;
+
+    text-align: justify;
 }
 
 .solve-info-card div {
     height: 200px; /* actual height of hover div's scramble image */
+    margin: 10px auto 10px auto;
+    width: fit-content;
 }
