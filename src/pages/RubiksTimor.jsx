@@ -1,7 +1,7 @@
 import "../assets/style.css";
 import "../styles/RubiksTimor.css";
 import {useState, useEffect, useRef} from 'react';
-import { ao, cstimerWorker, wca_events } from "../functions/rubikstimor.jsx";
+import { ao, cstimerWorker, wca_events, displayTime } from "../functions/rubikstimor.jsx";
 
 export default function RubiksTimor() {
     const [solves, setSolves] = useState([]);
@@ -203,7 +203,7 @@ function Timer({ setSolveTime, setStartSignal }) {
                         ? { color: "#66FF00" } 
                         : {}
                     }
-             children={(time / 1000).toFixed(3)}
+             children={displayTime(time)}
         />
     );
 }
@@ -239,16 +239,12 @@ function TimeContainer({ setSolves, ao }) {
 
         <div className="timer-wrapper">
             <Timer setSolveTime={setSolveTime} setStartSignal={setStartSignal}/>
-            {   
-                !isHidden && <>
-                    <div className="ao5">
-                    ao5: {ao.ao5}
-                    </div>
-                    <div className="ao12">
-                        ao12: {ao.ao12}
-                    </div>
-                </>
-            }
+            <div className="ao5" style={{ opacity: isHidden ? 0 : 1}}>
+                ao5: {displayTime(ao.ao5)}
+            </div>
+            <div className="ao12" style={{ opacity: isHidden ? 0 : 1}}>
+                ao12: {displayTime(ao.ao12)}
+            </div>
         </div>
     </div>
 }
@@ -258,8 +254,8 @@ function SolveList({ solves, setAo }) {
 
     useEffect(() => {
         n && setAo({
-            ao5: n > 4 ? ao(solves.slice(-5, n)).toFixed(3) : "___",
-            ao12: n > 11 ? ao(solves.slice(-12, n)).toFixed(3) : "___"
+            ao5: n > 4 ? ao(solves.slice(-5, n)) : -1,
+            ao12: n > 11 ? ao(solves.slice(-12, n)) : -1
         });
     }, [n]);
         
@@ -275,34 +271,22 @@ function SolveList({ solves, setAo }) {
 }
 
 function SolveItem({ solves, index }) {
-    const [hoverObject, setHoverObject] = useState({ isHover: false });
-
-    const mouseEnterHandler = (e) => {
-        setHoverObject({
-            isHover: true,
-            leftOffset: e.target.offsetLeft + e.target.offsetWidth + 10,
-            topOffset: e.target.offsetTop - e.target.parentNode.scrollTop
-        });
-    }
-
-    const mouseLeaveHandler = (e) => {
-        setHoverObject({ isHover: false });
-    }
+    const [isHover, setHover] = useState(false);
 
     return <>
         {
-            hoverObject.isHover && <SolveInfoCard solves={solves} index={index} hoverObject={hoverObject}/>
+            isHover && <SolveInfoCard solves={solves} index={index}/>
         }
-        <li className="solve" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+        <li className="solve" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <span>{ index }</span>
-            <span>{ (solves[index].time / 1000).toFixed(3) }</span>
-            <span>{ (index > 3) ? (ao(solves.slice(index - 4, index + 1))).toFixed(3) : "___" }</span>
-            <span>{ (index > 10) ? (ao(solves.slice(index - 11, index + 1))).toFixed(3) : "___" }</span>
+            <span>{ displayTime(solves[index].time) }</span>
+            <span>{ displayTime((index > 3) ? ao(solves.slice(index - 4, index + 1)) : -1) }</span>
+            <span>{ displayTime((index > 10) ? ao(solves.slice(index - 11, index + 1)) : -1) }</span>
         </li>
     </>
 }
 
-function SolveInfoCard({ solves, index, hoverObject }) {
+function SolveInfoCard({ solves, index }) {
     const [scrambleSvg, setScrambleSvg] = useState("");
 
     useEffect(() => {
@@ -315,7 +299,6 @@ function SolveInfoCard({ solves, index, hoverObject }) {
     
     useEffect(() => {
         if (scrambleSvg.length) {
-            console.log("heheh");
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = scrambleSvg;
 
@@ -328,7 +311,7 @@ function SolveInfoCard({ solves, index, hoverObject }) {
         }
     }, [scrambleSvg]);
 
-    return <div className="solve-info-card" style={{ "left": `${hoverObject.leftOffset}px`, "top": `${hoverObject.topOffset}px`}}>
+    return <div className="solve-info-card">
         <p>{wca_events[solves[index].type][0]}</p>
         <p>{solves[index].scramble}</p>
 

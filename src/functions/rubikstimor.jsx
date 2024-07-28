@@ -8,7 +8,7 @@ export const ao = (a) => {
         max = Math.max(a[i].time, max);
         sum += a[i].time;
     }
-    return (sum - min - max) / (n - 2) / 1000;
+    return Math.round((sum - min - max) / (n - 2));
 }
 
 export const cstimerWorker = (function() {
@@ -70,3 +70,13 @@ export const wca_events = [
 	["5x5 bld", "555bld", 60],
 	["3x3 mbld", "r3ni", 5]
 ];
+
+export const displayTime = (ms) => {
+	if (ms === -1)
+		return "___";
+	if (ms < 60000)
+		return (ms / 1000).toFixed(3);
+	const date = new Date(ms);
+
+	return `${date.getMinutes()}:${date.getSeconds().toString().padStart(2, '0')}.${date.getMilliseconds().toString().padStart(3, '0')}`;
+}

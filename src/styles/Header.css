@@ -93,9 +93,3 @@ header {
 
     animation: running-gradient 1000ms linear infinite reverse;
 }
-
-@keyframes running-gradient {
-    0% {
-        background-position: 400px;
-    }
-}

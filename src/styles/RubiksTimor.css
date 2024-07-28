@@ -1,3 +1,7 @@
+:root {
+    --left-panel-size: 17.5%;
+}
+
 .rubiks-main {
     display: flex;
     /* color: white; */
@@ -13,7 +17,7 @@
 }
 
 .left-panel {
-    width: 15%;
+    width: var(--left-panel-size);
     border-right: 1px white solid;
 }
 
@@ -22,10 +26,13 @@
     color: white;
 
     position: relative;
-    margin-top: 10px;
+    width: fit-content;
+    margin: auto;
 
-    font-size: 2em;
-    text-align: center;
+    padding: 0 40px;
+
+    font-size: larger;
+    text-align: justify;
 }
 
 .time-container {
@@ -34,12 +41,12 @@
 }
 
 .timer-wrapper {
-    position: relative;
-    left: 50%;
-    top: 50%;
+    position: absolute;
+    left: calc(var(--left-panel-size) + (100% - var(--left-panel-size)) / 2);
+    top: calc(50% + 72px);
     text-align: center;
     
-    transform: translate(-50%, -60%);
+    transform: translate(-50%, -50%);
 }
 
 .time {
@@ -57,7 +64,12 @@
     background-clip: text;
 }
 .timing {
-    color: white;
+    color: rgba(0, 0, 0, 0);
+    background-image: repeating-linear-gradient(to right, violet, cyan, violet);
+    background-clip: text;
+    transition: 0.4s;
+
+    animation: running-gradient 1000ms linear infinite reverse;
 }
 
 .ao5, .ao12 {
@@ -81,7 +93,7 @@
     right: 0;
     bottom: 0;
 
-    height: 300px; /* actual scramble image height */
+    height: 30%; /* actual scramble image height */
 }
 
 .auth-button {
@@ -103,7 +115,7 @@
     font-weight: 500;
 
     margin: 10px auto;
-    padding: 0 20px 0 10px;
+    padding: 0 10px 0 5px;
 
     overflow-y: scroll;
     height: calc(100vh - 120px);
@@ -119,7 +131,7 @@
     top: 0;
     position: sticky;
     margin: 0 0 5px 0;
-    padding: 0 10px;
+    padding: 0 5px;
     background-color: black;
 
     font-size: 1em;
@@ -143,7 +155,7 @@
 .solve-list li {
     background-color: rgb(45, 45, 45);
     margin: 5px 0;
-    padding: 0 10px;
+    padding: 0 5px;
 
     transition: .2s;
 }
@@ -168,16 +180,14 @@
 
 .solve-info-card {
     position: absolute;
+    left: var(--left-panel-size);
+    bottom: 6.5px;    
+
     background-color: black;
+    
     color: white;
 
-    margin: 0;
-    padding: 3px;
-
-    transform: translateY(-25%);
-
     width: 25%;
-    z-index: 1000;
 
     border: 1px lightgray solid;
     border-radius: 5px;

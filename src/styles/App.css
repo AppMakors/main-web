@@ -40,3 +40,9 @@ body {
         opacity: 1;
     }
 }
+
+@keyframes running-gradient {
+    0% {
+        background-position: 400px;
+    }
+}
