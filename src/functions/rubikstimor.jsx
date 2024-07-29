@@ -12,7 +12,7 @@ export const ao = (a) => {
 }
 
 export const cstimerWorker = (function() {
-	var worker = new Worker('cstimer_module.js');
+	var worker = new Worker(`${location.origin}/main-web/cstimer_module.js`);
 
 	var callbacks = {};
 	var msgid = 0;
