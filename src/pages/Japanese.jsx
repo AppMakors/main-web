@@ -11,6 +11,13 @@ export default function Japanese() {
     const selectRefs = [useRef(null), useRef(null)];
 
     useEffect(() => {
+        const optionsString = localStorage.getItem("ja_ops");
+        if (optionsString) {
+            setType(JSON.parse(optionsString));
+        }
+    }, [])
+
+    useEffect(() => {
         async function getLetters() {
             const response = await fetch(`${location.origin}/main-web/miniapps/japanese/${type[0]}_${type[1]}.json`);
             const responseList = await response.json();
@@ -21,16 +28,18 @@ export default function Japanese() {
         }
 
         getLetters();
+
+        localStorage.setItem("ja_ops", JSON.stringify(type));
     }, [type])
 
     return (
         <div className="japanese-main">
-            <select className="alphabet-select" ref={selectRefs[0]} onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
+            <select className="alphabet-select" value={type[0]} ref={selectRefs[0]} onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
                 <option value={"hira"}>Hiragana</option>
                 <option value={"kana"}>Katakana</option>
             </select>
 
-            <select className="alphabet-select" ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
+            <select className="alphabet-select" value={type[1]} ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
                 <option value={"learnt"}>Learnt</option>
                 <option value={"full"}>Full</option>
                 <option value={"1"}>1</option>
