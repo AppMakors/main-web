@@ -33,6 +33,9 @@ export default function Japanese() {
             <select className="alphabet-select" ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
                 <option value={"learnt"}>Learnt</option>
                 <option value={"full"}>Full</option>
+                <option value={"1"}>1</option>
+                <option value={"2"}>2</option>
+                <option value={"3"}>3</option>
             </select>
             
             {
@@ -121,7 +124,7 @@ function AlphabetRows({ letters, type }) {
     while (i < letters.length) {
         var romanjiArr = [];
         
-        if (i === 35 || i === 43 || (i >= 71 && i % 3 === 2)) {
+        if (i === 35 || i === 43 || (i >= 71 && i % 3 === 2) || type[1] === "3") {
             for (var j = 0; j < 3; j++) romanjiArr.push(letters[i + j][1]);
             i += 3;
         } else {
