@@ -130,22 +130,31 @@ function AlphabetRows({ letters, type }) {
     var i = 0;
     var rows = [];
 
-    while (i < letters.length) {
-        var romanjiArr = [];
-        
-        if (i === 35 || i === 43 || (i >= 71 && i % 3 === 2) || type[1] === "3") {
-            for (var j = 0; j < 3; j++) romanjiArr.push(letters[i + j][1]);
-            i += 3;
-        } else {
-            for (var j = 0; j < 5; j++) romanjiArr.push(letters[i + j][1]);
-            i += 5;
+    try {
+        while (i < letters.length) {
+            var romanjiArr = [];
+            
+            if (i === 35 || i === 43 || (i >= 71 && i % 3 === 2) || type[1] === "3") {
+                for (var j = 0; j < 3; j++) romanjiArr.push(letters[i + j][1]);
+                i += 3;
+            } else {
+                for (var j = 0; j < 5; j++) romanjiArr.push(letters[i + j][1]);
+                i += 5;
+            }
+    
+            rows.push(
+                <div className="alphabet-row" key={new Date().getTime() + i}>
+                    {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/${type[0]}/${v}.png`}/>)}
+                </div>
+            );
         }
-
-        rows.push(
-            <div className="alphabet-row" key={new Date().getTime() + i}>
-                {romanjiArr.map((v) => <img className="alphabet-image" key={v} src={`https://www.nhk.or.jp/lesson/assets/images/letters/detail/${type[0]}/${v}.png`}/>)}
-            </div>
-        );
+    } catch (ex) {
+        // This try catch is used to fix the bug:
+        // The AlphabetRows will be reload 2 times if user changes "type" in the select element,
+        // then "type" is changed faster than "letters" (because the letters is asynchronously fetched),
+        // so that, at the first reload, "type" is changed but "letters" isn't, bug will appear,
+        // at the second reload, "letters" is successfully changed, there'll no bug
+        // Solution: ignore the bug at the first reload using try catch, because the first reload is unnecessary at all
     }
 
     return rows;
