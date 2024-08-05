@@ -16,5 +16,14 @@
         "authorLink": "https://github.com/votranphi",
         "publishDate": "09/07/2024",
         "lang": ["vi", "en"]
+    },
+    {
+        "id": "cses1647",
+        "title": "Sparse Table",
+        "introduction": "What's the best way to process mix/max queries over an array's segment?",
+        "imgSource": "https://res.cloudinary.com/dv7bzo2r7/image/upload/v1722873335/cses1647_bb3uus.png",
+        "authorLink": "https://github.com/theConnectorr",
+        "publishDate": "02/08/2024",
+        "lang": ["vi"]
     }
 ]
