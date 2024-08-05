@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
+import 'katex/dist/katex.min.css'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import "../styles/Blog.css";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -48,7 +51,9 @@ export default function Blog() {
 						langList.map((langCode) => (<option key={langCode} value={langCode}>{langCodeToLang[langCode]}</option>))
 					}
 				</select>
-				<Markdown remarkPlugins={[remarkGfm]} 
+				<Markdown 
+					remarkPlugins={[remarkGfm, remarkMath]} 
+					rehypePlugins={[rehypeKatex]}
 					components={{
 						h2(props) {
 							return <h2 id={props.children
