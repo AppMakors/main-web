@@ -3,9 +3,13 @@ import "../styles/KeyTest.css";
 
 export default function KeyTest() {
     const [pressedKeys, setPressedKeys] = useState({});
+    const [text, setText] = useState([]);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
+            if (event.repeat)
+                return;
+            setText(prev =>[...(prev.length < 15 ? prev : prev.slice(1, 15)), event.key]);
             if (event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
                 setPressedKeys((prev) => ({ ...prev, [event.keyCode + 1000]: true }));
                 event.preventDefault();
@@ -45,6 +49,7 @@ export default function KeyTest() {
     }, []);
 
     return <div className="keytest-main">
+        <div className="text">{text.map((key) => <span>{key}</span>)}</div>
         <div className="keyboard">
             <div className="keyboard__row keyboard__row--h1">
                 <div className={`key--word ${pressedKeys[27] && 'pressed'}`}>

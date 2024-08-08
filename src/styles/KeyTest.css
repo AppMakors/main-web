@@ -1,16 +1,21 @@
 .keytest-main {
     height: calc(100vh - 72px);
+    
 }
 
 .keyboard {
+    --scale-factor: 1.25;
+
     text-align: center;
     font-size: 14px;
     font-family: sans-serif;
 
-    position: absolute;
+    position: relative;
+    width: 59em;
+    margin: auto;
+
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: scale(var(--scale-factor)) translateY(calc(-50% + var(--scale-factor) * 10%));
 }
 
 .keyboard__row {
@@ -51,7 +56,6 @@
     width: 3.5em;
 }
 
-.keyboard__row>div[data-pressed],
 .keyboard__row>div:active {
     background: #2a2a2a;
     color: #aaa;
@@ -141,4 +145,25 @@
 
 .keyboard>.keyboard__row {
     text-align: center;
+}
+
+.text {
+    position: absolute;    
+    margin: 0;
+    width: fit-content;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: white;
+    font-family: 'Source Sans 3';
+    font-size: 2em;
+}
+
+.text span {
+    border-radius: 5px;
+    border: 1px white solid;
+    margin: 5px;
+    padding: 3px 5px;
+    width: 100px;
 }
