@@ -14,6 +14,13 @@
     margin: auto;
 }
 
+.choice-row {
+    width: fit-content;
+    margin: auto;
+
+    padding: 5px;
+}
+
 .choice-row button {
     width: 125px;
     height: 125px;
@@ -44,11 +51,20 @@
 }
 
 .question-container {
-    position: absolute;
+    border: 1px white solid;
+    border-radius: 10px;
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+    background-color: rgb(45, 45, 45);
 
+    position: relative;
+    width: 59em;
+    margin: auto;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
+}
+
+.question-container p {
+    padding: 5px;
 }
 
 .alphabet-button {
@@ -117,7 +133,12 @@
     transform: scale(1.25);
 }
 
-.alphabet-select {
+.select-container {
+    width: fit-content;
+    margin: auto;
+}
+
+.select-container select {
     position: relative;
     border-radius: 5px;
 }

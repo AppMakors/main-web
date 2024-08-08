@@ -34,18 +34,20 @@ export default function Japanese() {
 
     return (
         <div className="japanese-main">
-            <select className="alphabet-select" value={type[0]} ref={selectRefs[0]} onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
-                <option value={"hira"}>Hiragana</option>
-                <option value={"kana"}>Katakana</option>
-            </select>
+            <div className="select-container">
+                <select value={type[0]} ref={selectRefs[0]} onChange={ (e) => setType(([a, b]) => [ e.target.value, b ]) }>
+                    <option value={"hira"}>Hiragana</option>
+                    <option value={"kana"}>Katakana</option>
+                </select>
 
-            <select className="alphabet-select" value={type[1]} ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
-                <option value={"learnt"}>Learnt</option>
-                <option value={"full"}>Full</option>
-                <option value={"1"}>1</option>
-                <option value={"2"}>2</option>
-                <option value={"3"}>3</option>
-            </select>
+                <select value={type[1]} ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
+                    <option value={"learnt"}>Learnt</option>
+                    <option value={"full"}>Full</option>
+                    <option value={"1"}>1</option>
+                    <option value={"2"}>2</option>
+                    <option value={"3"}>3</option>
+                </select>
+            </div>
             
             {
                 letters.length

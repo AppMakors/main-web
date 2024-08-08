@@ -28,6 +28,7 @@ export default function KeyTest() {
             }
 
             if (event.keyCode === 44) {
+                setText(prev =>[...(prev.length < 15 ? prev : prev.slice(1, 15)), "Print screen"]);
                 setPressedKeys((prev) => ({ ...prev, [event.keyCode]: true }));
                 setTimeout(() => {
                     setPressedKeys((prev) => ({ ...prev, [event.keyCode]: false }));
