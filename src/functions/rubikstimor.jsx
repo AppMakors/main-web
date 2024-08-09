@@ -72,7 +72,7 @@ export const wca_events = [
 ];
 
 export const displayTime = (ms) => {
-	if (ms === -1)
+	if (ms === -1 || ms === undefined)
 		return "___";
 	if (ms < 60000)
 		return (ms / 1000).toFixed(3);
