@@ -33,6 +33,7 @@ Trong quá trình học trên trường, mình đã trải qua vài môn học c
     - [git revert](#git-revert)
     - [git reset](#git-reset)
     - [git status](#git-status)
+    - [git log](#git-log)
 
 ## git add
 Đầu tiên, chúng ta phải hiểu rằng, khi muốn đẩy code của mình lên Remote repo, Git không trực tiếp đẩy lên thông qua một lệnh mà nó sẽ "đóng gói" vào một cái thùng (hiểu sơ là vậy), sau đó làm một số thủ tục thì mới có thể đẩy lên. Thì lệnh này được dùng để bỏ các file có sự thay đổi vào "cái thùng" đó.
@@ -188,6 +189,12 @@ Những thay đổi bao gồm:
 - Các file đã được thay chỉnh sửa code.
 - Các file được thêm vào.
 - Các file được xóa đi.
+
+## git log
+Chúng ta hoàn toàn có thể xem lịch sử commit của một remote repository trên website của GitHub. Tuy nhiên sẽ tốn khá nhiều bước và khá nhiều thời gian chờ để chúng ta có thể vào được phần lịch sử commit đó. Vì vậy, cũng sẽ có câu lệnh để ta có thể xem được lịch sử commit nhanh chóng hơn khi chúng ta đang hoạt động ở local repository:
+```bash
+git log #xem lịch sử commit của repository
+```
 
 ## Kinh nghiệm khi sử dụng GitHub
 Sau một thời gian sử dụng GitHub để quản lý những đồ án trên trường của mình, mình đã rút ra được một số kinh nghiệm như sau:

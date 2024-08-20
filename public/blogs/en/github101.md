@@ -33,6 +33,7 @@ During my time at school, I took several courses that required managing source c
     - [git revert](#git-revert)
     - [git reset](#git-reset)
     - [git status](#git-status)
+    - [git log](#git-log)
 
 ## git add
 First, we must understand that when we want to push our code to a remote repo, Git does not directly push it through a command but "packages" it into a "box" (roughly understood), and then after some procedures, it can be pushed up. This command is used to put the changed files into that "box."
@@ -188,6 +189,12 @@ The changes include:
 - Files that have been edited.
 - Files that have been added.
 - Files that have been deleted.
+
+## git log
+We can view the commit history of a remote repository directly on the GitHub website. However, this process involves several steps and may take some time to access the commit history. To streamline this process, there's a command that allows us to quickly view the commit history while working in the local repository:
+```bash
+git log #view the commit history of the repository
+```
 
 ## Experience using GitHub
 After using GitHub to manage my school projects, I have gathered the following experiences:

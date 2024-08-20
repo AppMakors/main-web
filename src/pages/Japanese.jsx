@@ -7,7 +7,7 @@ import { myRandom, shuffle } from "../functions/japanese.jsx";
 
 export default function Japanese() {
     const [letters, setLetters] = useState([]);
-    const [type, setType] = useState([ "hira", "learnt" ]);
+    const [type, setType] = useState([ "hira", "full" ]);
     const selectRefs = [useRef(null), useRef(null)];
 
     useEffect(() => {
@@ -41,7 +41,6 @@ export default function Japanese() {
                 </select>
 
                 <select value={type[1]} ref={selectRefs[1]} onChange={ (e) => setType(([a, b]) => [a, e.target.value]) }>
-                    <option value={"learnt"}>Learnt</option>
                     <option value={"full"}>Full</option>
                     <option value={"1"}>1</option>
                     <option value={"2"}>2</option>
