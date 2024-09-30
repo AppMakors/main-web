@@ -61,7 +61,9 @@ export default function Japanese() {
 }
 
 function Question({ letters }) {
-    const NUMBER_OF_CHOICES = 5;
+    // Note that: ROWS * CHOICES_PER_ROW must be less than or equal to 25
+    const ROWS = 2;
+    const CHOICES_PER_ROW = 5;
 
     const [signal, setSignal] = useState(false);
 
@@ -76,7 +78,7 @@ function Question({ letters }) {
         letters[letterIdx][isRomanji ^ 1]
     ];
 
-    while (choices.length < NUMBER_OF_CHOICES) {
+    while (choices.length < ROWS * CHOICES_PER_ROW) {
         const randInt = myRandom(0, letters.length - 1);
 
         if (selectedIdx.indexOf(randInt) === -1) {
@@ -100,11 +102,21 @@ function Question({ letters }) {
         }
     };
 
+    let choiceRows = [];
+    for (let i = 0; i < ROWS; i++) {
+        choiceRows.push(
+            <div key={i}>
+                {choices.slice(CHOICES_PER_ROW * i, CHOICES_PER_ROW * (i + 1))
+                        .map((v, index) => <button className="ans" key={new Date().getTime() + index} value={v} onClick={choiceHandler}>{v}</button>)}
+            </div>
+        );
+    }
+
     return <div className="question-container">
         <p>{letter}</p>
 
         <div className="choice-row">
-            {choices.map((v, i) => <button className="ans" key={new Date().getTime() + i} value={v} onClick={choiceHandler}>{v}</button>)}
+            {choiceRows.map((v) => v)}
         </div>
     </div>
 }
